@@ -1,21 +1,48 @@
 # Pebbles
 
-A local analyst workspace for investigating A/B-test evidence and recording a defensible recommendation. Pebbles checks supplied evidence, explains disagreements, preserves corrections and packages reviewed decisions for handoff.
+**Can you trust this A/B test enough to ship?** Inspect the result, investigate missing evidence and share a reviewed decision.
 
-**Status:** working single-user prototype. Synthetic cases, public-data replays and AI-operated browser walkthroughs have run. No human analyst study or representative company-export validation has been completed. This is not a production experimentation or approval service.
+## Try it in 30 seconds
 
-## Start locally
-
-Requires Python 3.11+. The runtime uses the standard library: no API keys, external model service or Python dependency installation is required.
+With **Git and Python 3.11+ already installed**, clone and run:
 
 ```sh
 git clone https://github.com/farmanp/pebbles.git
 cd pebbles
+python3 start.py
+```
+
+Your browser opens directly into a populated **synthetic checkout investigation**. No pip install, API key, data download or frontend build. Startup timing excludes installing Python, GitHub access and cloning; this repository is private, so viewers need access to clone it.
+
+![Pebbles investigation: conversion rates, effect estimate and uncertainty](docs/images/investigation.jpg)
+
+### Your first three clicks
+
+1. **Evidence run → Original export**: see an apparent conversion increase.
+2. **Evidence run → Corrected export**: see the result reverse after 500 omitted users are restored. Expand **Revision comparisons** to inspect what changed. Shipping remains blocked.
+3. **Decision**: read the clearly labeled simulated recommendation/review, then **Download decision and evidence ZIP**.
+
+To use your own data, click **Import CSV** and map user, variant and binary outcome columns. The demo is saved separately under `runs/quickstart/`; relaunching preserves it. Stop with **Ctrl+C**. For a terminal-only environment: `python3 start.py --no-browser` and open the printed URL. If port 8848 is busy, an available loopback port is chosen automatically.
+
+## See the workspace
+
+| Experiments | Decision |
+| --- | --- |
+| ![Searchable experiment queue](docs/images/experiments.jpg) | ![Recommendation and recorded review](docs/images/decision.jpg) |
+
+These are screenshots of the included synthetic checkout demo. The recommendations and reviews are simulated, not a real customer investigation or human analyst study.
+
+<details>
+<summary>Optional: synthetic examples and Cookie Cats comparison fixtures</summary>
+
+```sh
 python3 scripts/setup_fixtures.py --with-public-data
 python3 -m pebbles.web --port 8848
 ```
 
-Open **http://127.0.0.1:8848**. Stop with Ctrl+C. The optional Cookie Cats downloads are pinned by hash; see [third-party notices](THIRD_PARTY_NOTICES.md). Omit `--with-public-data` for synthetic fixtures only; public examples and the full comparison test suite require those downloads.
+Omit `--with-public-data` for synthetic fixtures only. Cookie Cats downloads are pinned by hash; see [third-party notices](THIRD_PARTY_NOTICES.md). Unavailable example packets are hidden until generated. On macOS, configure your Python installation's CA certificates if downloads report a certificate error; never disable TLS verification.
+
+</details>
 
 ## Analyst workflow
 

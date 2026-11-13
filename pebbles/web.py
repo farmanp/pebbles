@@ -129,7 +129,7 @@ class Handler(BaseHTTPRequestHandler):
                 run=json.loads((self.run_dir(path.split('/')[-1])/'report.json').read_text())
                 self.send({'obligations':obligations(run),'assessment':run.get('decision')})
             elif path == '/api/examples':
-                self.send([example_info(key) for key in EXAMPLES])
+                self.send([example_info(key) for key in EXAMPLES if (example_folder(key)/'inventory.json').is_file()])
             elif path.startswith('/api/examples/'):
                 parts=path.split('/')
                 if len(parts)!=5 or parts[4]!='download' or parts[3] not in EXAMPLES: raise ValueError('Unknown example.')
