@@ -1,0 +1,16 @@
+{
+  "status": "AI Computer Use reruns completed; no human pilot run",
+  "runs": [
+    "119fd3f9-beef-4f20-bbb2-9c78aa1f024f",
+    "0a47a51f-033e-4251-9a0c-4335b78a9275"
+  ],
+  "tests": 50,
+  "saved_export_parity": "passed",
+  "source_hashes": {
+    "pebbles/discrepancy.py": "d0a9c80601d9c0cb22e00db5dad4160b31f16ae2719490870ff60fce44dd839d",
+    "pebbles/public_comparison.py": "e78e5296331d81824c9fc759d221a636461045ab997027b21e742dafc9f61cc7",
+    "pebbles/report.py": "107e5881aa65bffcbcbd0dfd276fdf4f6d2a9cb4c343ab41a7e3707db8edd7b7",
+    "pebbles/static/app.js": "9272cfc6f2a18e8e438be9ae6a2bc937d46be20b5f11893d6c27b02f98b928af"
+  },
+  "note": "Preserves earlier manifests and archived runs. Restage fresh participant runtimes from this source before the human pilot."
+}

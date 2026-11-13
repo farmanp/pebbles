@@ -1,0 +1,269 @@
+{
+  "assertions": [
+    {
+      "check_id": "C04",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.arms.control; $.arms.treatment",
+          "path": "scorecard.json",
+          "sha256": "dfae45c753ae67a5c790be63ed67492ffb5067856b26690bb208101ac5564588"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "arithmetic": "numerator <= denominator and displayed rate matches numerator/denominator within 0.000005"
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C01",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "provider": "analyst",
+        "unlocks": "record counts",
+        "what": "permitted event exports"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C02",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.window_start; $.window_end; $.revision",
+          "path": "configuration.json",
+          "sha256": "109e433e38ec86260ac920490627e6ca6e845872b1f8c694cde901eb846d79f4"
+        },
+        {
+          "locator": "$.arms.control; $.arms.treatment",
+          "path": "scorecard.json",
+          "sha256": "dfae45c753ae67a5c790be63ed67492ffb5067856b26690bb208101ac5564588"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": {
+        "candidate_denominators": null,
+        "intended_rate": null
+      },
+      "minimum_request": {
+        "provider": "analyst or metric owner",
+        "unlocks": "intended metric recomputation and semantic scorecard agreement",
+        "what": "versioned denominator, eligibility and strict attribution/window rules"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C05",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.window_start; $.window_end; $.revision",
+          "path": "configuration.json",
+          "sha256": "109e433e38ec86260ac920490627e6ca6e845872b1f8c694cde901eb846d79f4"
+        },
+        {
+          "locator": "$.arms.control; $.arms.treatment",
+          "path": "scorecard.json",
+          "sha256": "dfae45c753ae67a5c790be63ed67492ffb5067856b26690bb208101ac5564588"
+        },
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "465985df7e989afcb509099d259986f8ab39269ef5c5e4a2d81b3261efd40a0b"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": {
+        "candidate_denominators": null,
+        "intended_rate": null
+      },
+      "minimum_request": {
+        "provider": "analyst or metric owner",
+        "unlocks": "intended metric recomputation and semantic scorecard agreement",
+        "what": "versioned denominator, eligibility and strict attribution/window rules"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C03",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "provider": "analyst",
+        "unlocks": "denominator implementation comparison",
+        "what": "metric definition and implementation SQL"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C07",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "465985df7e989afcb509099d259986f8ab39269ef5c5e4a2d81b3261efd40a0b"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": {
+        "scope": "supplied analytical artifacts only"
+      },
+      "minimum_request": {
+        "provider": "source owner",
+        "unlocks": "comparability",
+        "what": "aligned source filters/window/snapshot and definitions"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C08",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "provider": "analyst",
+        "unlocks": "event integrity within exports",
+        "what": "event exports"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C09",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "465985df7e989afcb509099d259986f8ab39269ef5c5e4a2d81b3261efd40a0b"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "may_remain_unresolved": true,
+        "provider": "implementation or data owner",
+        "unlocks": "delivery assessment",
+        "what": "render traces and relevant application/SDK code for assignment-to-render path"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C10",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "465985df7e989afcb509099d259986f8ab39269ef5c5e4a2d81b3261efd40a0b"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "may_remain_unresolved": true,
+        "provider": "implementation or data owner",
+        "unlocks": "production completeness",
+        "what": "independent capture reconciliation and export completeness evidence"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C11",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "465985df7e989afcb509099d259986f8ab39269ef5c5e4a2d81b3261efd40a0b"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "forbidden_claims": [
+          "whole experiment verified",
+          "causal validity established",
+          "statistically significant",
+          "eligible to ship",
+          "production capture proven",
+          "rendering proven",
+          "repeat encounter proves defective duplicate delivery",
+          "recomputed from events",
+          "no crossovers or duplicates",
+          "intended denominator verified"
+        ]
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    }
+  ],
+  "case": "E02",
+  "contract_version": "1.0.0",
+  "design": {
+    "assigned": [
+      6,
+      8
+    ],
+    "buyers": [
+      1,
+      4
+    ],
+    "exposed": [
+      4,
+      6
+    ],
+    "extra": 1,
+    "repeat_arm": "control"
+  },
+  "forbidden_claims": [
+    "whole experiment verified",
+    "causal validity established",
+    "statistically significant",
+    "eligible to ship",
+    "production capture proven",
+    "rendering proven",
+    "repeat encounter proves defective duplicate delivery",
+    "recomputed from events",
+    "no crossovers or duplicates",
+    "intended denominator verified"
+  ],
+  "form": "A",
+  "input_hashes": {
+    "configuration.json": "109e433e38ec86260ac920490627e6ca6e845872b1f8c694cde901eb846d79f4",
+    "inventory.json": "465985df7e989afcb509099d259986f8ab39269ef5c5e4a2d81b3261efd40a0b",
+    "scorecard.json": "dfae45c753ae67a5c790be63ed67492ffb5067856b26690bb208101ac5564588",
+    "task.txt": "a7b2b15830daf13787ca82b6068795c53c5f0ea5c7ba8b878f341fb53f8eb0b2"
+  },
+  "oracle_version": "1.0.0-draft",
+  "packet_id": "p-948c",
+  "rationale": "Counts and fractions hand-specified from fixture design; no evaluator imported or run. Independent recomputation required before freeze.",
+  "review_status": "awaiting independent review"
+}

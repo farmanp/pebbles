@@ -1,0 +1,90 @@
+{
+  "r-482": {
+    "family": "denominator",
+    "form": "A",
+    "fraction": 0.7,
+    "seed": 101,
+    "rows_reference": 63129,
+    "rows_export": 63129
+  },
+  "r-735": {
+    "family": "denominator",
+    "form": "B",
+    "fraction": 0.7,
+    "seed": 102,
+    "rows_reference": 63129,
+    "rows_export": 63129
+  },
+  "r-196": {
+    "family": "population",
+    "form": "A",
+    "fraction": 0.74,
+    "seed": 201,
+    "rows_reference": 66736,
+    "rows_export": 63036
+  },
+  "r-824": {
+    "family": "population",
+    "form": "B",
+    "fraction": 0.74,
+    "seed": 202,
+    "rows_reference": 66736,
+    "rows_export": 63036
+  },
+  "r-563": {
+    "family": "metric",
+    "form": "A",
+    "fraction": 0.78,
+    "seed": 301,
+    "rows_reference": 70344,
+    "rows_export": 70344
+  },
+  "r-247": {
+    "family": "metric",
+    "form": "B",
+    "fraction": 0.78,
+    "seed": 302,
+    "rows_reference": 70344,
+    "rows_export": 70344
+  },
+  "r-918": {
+    "family": "clean",
+    "form": "A",
+    "fraction": 0.66,
+    "seed": 401,
+    "rows_reference": 59522,
+    "rows_export": 59522
+  },
+  "r-351": {
+    "family": "clean",
+    "form": "B",
+    "fraction": 0.66,
+    "seed": 402,
+    "rows_reference": 59522,
+    "rows_export": 59522
+  },
+  "r-609": {
+    "family": "denominator",
+    "form": "pilot",
+    "fraction": 0.68,
+    "seed": 501,
+    "rows_reference": 61324,
+    "rows_export": 61324
+  },
+  "r-172": {
+    "family": "population",
+    "form": "pilot",
+    "fraction": 0.76,
+    "seed": 502,
+    "rows_reference": 68539,
+    "rows_export": 64739
+  },
+  "r-450": {
+    "family": "clean",
+    "form": "practice",
+    "fraction": 0.64,
+    "seed": 601,
+    "rows_reference": 57717,
+    "rows_export": 57717
+  }
+}

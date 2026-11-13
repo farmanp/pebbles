@@ -1,0 +1,20 @@
+{
+  "metrics": [
+    {
+      "id": "purchase_conversion",
+      "version": "v1",
+      "grain": "unique_user",
+      "numerator": "exposed purchasers who purchase after exposure and within window",
+      "denominator": "distinct exposed users",
+      "format": "ratio"
+    },
+    {
+      "id": "purchase_conversion",
+      "version": "v2",
+      "grain": "unique_user",
+      "numerator": "assigned purchasers who purchase after assignment and within window",
+      "denominator": "distinct assigned users",
+      "format": "ratio"
+    }
+  ]
+}

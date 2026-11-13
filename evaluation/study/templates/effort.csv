@@ -1,0 +1,1 @@
+participant_id,schedule_row,task_order,packet_id,method,person_id,role,activity_code,start_utc,end_utc,active_minutes,allocation_fraction,allocated_minutes,shared_cost_id,waiting_minutes,assistance_text,censored,note

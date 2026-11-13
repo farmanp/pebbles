@@ -1,0 +1,20 @@
+# Codebase Details–Brainstormer
+
+Status: completed. Mode: BRAINSTORM. Actual fresh-context reviewer return; normalized by synthesizer without changing findings. No evaluation run.
+
+## Read attestation
+
+Reviewer attested reading `planning/review-input.md`; bundled `agents/codebase_details.md`; bundled `resources/document_standards/re-implementation-standard.md`; and all 14 source files listed in `source-read-manifest.md`. Also inspected generated Python bytecode with partly truncated hex output, excluded from evidence. No implementation, tests, or external research performed.
+
+## Findings
+
+1. **Blocker — Per-check provenance and claim boundaries need an executable oracle.** Sources: target Current user intent / Proposed first evaluation; boundary §§2–4; technical specification execution artifacts. Require check ID/version, proposition, evidence locators/fingerprints, population/window/metric scope, status, observed/expected values, reasoning, limitations and additional evidence. Completeness declarations do not establish real-world completeness. Acceptance: every scored finding traces to admitted inputs; zero rendering/completeness overclaims; missing definitions cannot be filled from hidden fixture knowledge.
+2. **Blocker — Existing fixtures cannot distinguish semantics from arithmetic.** Sources: BRD Golden dataset/G0; metric definitions; manifest; checker base-count test. Checker omits time, revision and metric definition interpretation. Pin window inclusivity, timestamp rules, attribution, joins and exclusions; add pre-exposure, out-of-window and mismatched-revision mutations with independent answers. Unspecified semantics yield Insufficient evidence for affected claims.
+3. **Major — Separate evidence problems from execution failures.** Sources: boundary §3; technical gates/artifacts. Parse errors, unsupported SQL and interruption cannot become scientific Failed findings. Record execution stage, error category, completion coverage and affected checks. Acceptance: malformed file and unsupported operation expose actionable errors and no silent Verified outcome.
+4. **Major — E04 needs diagnosis without source arbitration.** Sources: target E04; boundary §5; technical fingerprints. Record source timestamps, filters, window, grain and completeness. Separate numerical disagreement from shared-contract violation; do not presume raw exports are authoritative. Acceptance: exact conflicting values and provenance plus unresolved comparability where appropriate.
+5. **Major — Repeated exposure is not automatically a defect.** Sources: BR-D02, mutation, expected JSON, duplicate test. New exposure ID means repeat encounter; distinguish repeat user, repeated event ID and incorrect event denominator. E01 should plant row-count denominator SQL/scorecard error. Clean repeat leaves denominator three; corrupt denominator four is the failed calculation.
+6. **Major — Measure all investigation effort.** Sources: target comparison; OP-1/CP-P; boundary §5. Include preparation, investigation, interpretation, follow-up and rework; preserve baseline artifacts/tools. Grade safety/correctness before time. Proposed exploratory target: 20% lower median effort, no critical unsupported claim or missed consequential defect.
+
+## Proposal and alternatives
+
+Proposed five-day preparation/analysis cap and three analysts × 90 minutes; these are proposals, not commitments. Dependency order: freeze claims/statuses/oracles; specify five packages; add clean control and temporal mutations; dry-review provenance/error visibility; compare counterbalanced matched variants; score before inspecting speed. Without analysts, technical rehearsal only. Manual templated report and deterministic evaluator test different hypotheses; disclose human assistance. Required outcomes: E01 planted calculation defect; E02 aggregate-only; E03 denominator ambiguity; E04 sourced discrepancy; E05 no delivery assurance. Open choices: scorecard fields, supported definitions, time/missingness semantics, participants, automation level, effort target and independent oracle owner.

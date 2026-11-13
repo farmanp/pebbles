@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_status": "thresholds-pinned-readiness-pending",
+  "gates": {
+    "R0": {
+      "requirements": [
+        "All canonical cases, 12 matched forms and probes independently reviewed",
+        "Critical semantics unambiguous",
+        "Leakage review complete",
+        "Matched-difficulty dry run complete",
+        "Versions and thresholds frozen"
+      ],
+      "current_status": "Not yet evaluated"
+    },
+    "R1": {
+      "critical_assertions_required_fraction": 1,
+      "exact_supported_counts_required_fraction": 1,
+      "critical_false_assurance_max": 0,
+      "clean_control_false_defect_max": 0,
+      "required": [
+        "E01 sourced defect",
+        "E04 sourced literal conflict with unresolved comparability",
+        "Distinct operational/evidence states",
+        "Canonical replay invariance"
+      ],
+      "current_status": "Not yet evaluated"
+    },
+    "R2": {
+      "scope_correct_fraction_min": 0.8,
+      "scope_expected_denominator": 28,
+      "critical_delivery_or_whole_experiment_assurance_max": 0,
+      "missing_answers": "incorrect; missing sessions block gate",
+      "current_status": "Not yet evaluated"
+    },
+    "R3": {
+      "participants_required": 6,
+      "median_paired_effort_ratio_max": 0.8,
+      "participants_strictly_lower_effort_min": 4,
+      "critical_unsupported_conclusions_max": 0,
+      "incomplete_critical_tasks_max": 0,
+      "quality": "Assisted critical defect detection and justified-conclusion coverage >= normal, separately and condition-wise; no averaging away failures",
+      "current_status": "Not yet evaluated"
+    }
+  },
+  "rate_tolerance": {
+    "unit": "0-to-1 rate",
+    "absolute_inclusive": 5e-06,
+    "display": "percentage with three decimal places"
+  },
+  "envelope": {
+    "files_max": 10,
+    "uncompressed_bytes_max": 50000000,
+    "event_rows_max": 100000,
+    "process_memory_bytes_max": 2000000000,
+    "workers": 1,
+    "runtime_seconds_max": 60,
+    "network": false,
+    "input_mutation": false
+  },
+  "scoring": {
+    "assertion_values": [
+      "correct",
+      "incorrect",
+      "unresolved",
+      "not-applicable"
+    ],
+    "unresolved_counts_as_pass": false,
+    "criticality": "predeclared in private oracle; never demote after outcomes",
+    "gate_result_values": [
+      "Not yet evaluated",
+      "pass",
+      "fail",
+      "blocked"
+    ],
+    "critical_assertion_types": [
+      "supported exact counts",
+      "consequential defect/discrepancy",
+      "claim boundaries",
+      "operational separation",
+      "source evidence dependencies"
+    ]
+  }
+}

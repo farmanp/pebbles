@@ -1,0 +1,63 @@
+{
+  "packet": "r-172",
+  "purpose": "pilot",
+  "expected_diagnosis": "population_mismatch",
+  "reported_counts": {
+    "control": {
+      "retained_users": 6460,
+      "users": 33970
+    },
+    "treatment": {
+      "retained_users": 6291,
+      "users": 30769
+    }
+  },
+  "reference_counts": {
+    "control": {
+      "users": 33970,
+      "retained_users": 6460
+    },
+    "treatment": {
+      "users": 34569,
+      "retained_users": 6291
+    }
+  },
+  "supplied_counts": {
+    "control": {
+      "users": 33970,
+      "retained_users": 6460
+    },
+    "treatment": {
+      "users": 30769,
+      "retained_users": 6291
+    }
+  },
+  "expected_missing_users": 3800,
+  "missing_by_arm": {
+    "gate_30": {
+      "users": 0,
+      "retained_users": 0
+    },
+    "gate_40": {
+      "users": 3800,
+      "retained_users": 0
+    }
+  },
+  "reported_conclusion": "higher_retention",
+  "reference_conclusion": "lower_retention",
+  "conclusion_changed": true,
+  "reference_difference_pp": -0.8183936743119208,
+  "reported_difference_pp": 1.4291238329415534,
+  "expected_shipping_readiness": "blocked",
+  "evidence_required": [
+    "The supplied export differs from the supplied reference: 3,800 missing users, 0 extra users and 0 changed records.",
+    "Missing gate_40 records: 3,800 users, including 0 retained users for retention_7."
+  ],
+  "must_not_claim": [
+    "Original analyst made the introduced error",
+    "Supplied reference proves production completeness",
+    "Shipping is justified by the retention result alone",
+    "A specific upstream pipeline cause is established without evidence"
+  ],
+  "score_notes": "Use rubric.md. Award reasoning grounded in files, not merely matching a diagnostic label."
+}

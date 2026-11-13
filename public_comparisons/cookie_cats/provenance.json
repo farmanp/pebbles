@@ -1,0 +1,30 @@
+{
+  "retrieved_at": "2026-11-13T05:57:57.858967+00:00",
+  "repository": "https://github.com/nsy0079/cookie-cats-ab-test",
+  "commit": "9dc979bb7cb7fe82755eddc03e738a927d76b7c7",
+  "source_type": "Independent public portfolio analysis and mirrored dataset; not original company decision record.",
+  "upstream_dataset": "https://www.kaggle.com/datasets/mursideyarkin/mobile-games-ab-testing-cookie-cats",
+  "license_note": "Mirror has no repository license; upstream dataset terms were not independently established. Files retained locally for the requested comparison, not published or relicensed.",
+  "files": {
+    "cookie_cats.csv": {
+      "url": "https://raw.githubusercontent.com/nsy0079/cookie-cats-ab-test/9dc979bb7cb7fe82755eddc03e738a927d76b7c7/data/cookie_cats.csv",
+      "sha256": "91bb91e2e25f42f6bd6d4920346d8f89ecb82fe442b257272cc258dbcc8e9c97",
+      "bytes": 2707296
+    },
+    "analyst.ipynb": {
+      "url": "https://raw.githubusercontent.com/nsy0079/cookie-cats-ab-test/9dc979bb7cb7fe82755eddc03e738a927d76b7c7/cookie_cats_ab_test.ipynb",
+      "sha256": "9a26e308f778cb63e2a4c5d017c9879773f31396a1fb3a534af6843ca1991ce7",
+      "bytes": 155790
+    },
+    "analyst-readme.md": {
+      "url": "https://raw.githubusercontent.com/nsy0079/cookie-cats-ab-test/9dc979bb7cb7fe82755eddc03e738a927d76b7c7/README.md",
+      "sha256": "303083a195ed0033bc8dd50d7e9e2e24149f5eb320589144a68506cc6059b7e8",
+      "bytes": 3124
+    }
+  },
+  "candidate_selection": {
+    "Cookie Cats": "90,189 user records, two arms and binary retention with notebook and explicit exclusion policy. Fits a bounded snapshot replay.",
+    "Marketing AB": "588,101 records exceeds current row admission limit; weaker direct provenance.",
+    "Criteo": "Millions of rows and nonuniform subsampling; original experiment lift cannot be recovered from the public release."
+  }
+}

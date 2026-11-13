@@ -1,0 +1,363 @@
+{
+  "assertions": [
+    {
+      "check_id": "C04",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.arms.control; $.arms.treatment",
+          "path": "scorecard.json",
+          "sha256": "7b4ab194d5a0bfd9d5b43b143d484064c7e48394c1d8b5ee14939de76a428889"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "arithmetic": "numerator <= denominator and displayed rate matches numerator/denominator within 0.000005"
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C01",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "lines 1-end",
+          "path": "assignments.jsonl",
+          "sha256": "3bdfa886554e8df335d0eb9a55b9d843914a251c2d271b28f69b80a4ab85bf4f"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "exposures.jsonl",
+          "sha256": "cfd78954337c7727c1a567809192196159c70edf43baf823d1d8acb7ae895842"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "outcomes.jsonl",
+          "sha256": "ac91045ecde666091e1b100f146a9e8613808db43d3adfd83b56b17de1abfe23"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control": {
+          "assigned": 9,
+          "distinct_exposed": 7,
+          "exposure_rows": 7,
+          "purchasers": 4
+        },
+        "treatment": {
+          "assigned": 7,
+          "distinct_exposed": 5,
+          "exposure_rows": 8,
+          "purchasers": 2
+        }
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C02",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.window_start; $.window_end; $.revision",
+          "path": "configuration.json",
+          "sha256": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "assignments.jsonl",
+          "sha256": "3bdfa886554e8df335d0eb9a55b9d843914a251c2d271b28f69b80a4ab85bf4f"
+        },
+        {
+          "locator": "$.denominator; $.numerator; $.outcome_mapping",
+          "path": "metric.json",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "locator": "$.arms.control; $.arms.treatment",
+          "path": "scorecard.json",
+          "sha256": "7b4ab194d5a0bfd9d5b43b143d484064c7e48394c1d8b5ee14939de76a428889"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "exposures.jsonl",
+          "sha256": "cfd78954337c7727c1a567809192196159c70edf43baf823d1d8acb7ae895842"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "outcomes.jsonl",
+          "sha256": "ac91045ecde666091e1b100f146a9e8613808db43d3adfd83b56b17de1abfe23"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "rates": {
+          "control": "4/7",
+          "treatment": "2/5"
+        },
+        "scorecard_rate_difference": {
+          "control": "0",
+          "treatment": "3/20"
+        }
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C05",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.window_start; $.window_end; $.revision",
+          "path": "configuration.json",
+          "sha256": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "assignments.jsonl",
+          "sha256": "3bdfa886554e8df335d0eb9a55b9d843914a251c2d271b28f69b80a4ab85bf4f"
+        },
+        {
+          "locator": "$.denominator; $.numerator; $.outcome_mapping",
+          "path": "metric.json",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "locator": "$.arms.control; $.arms.treatment",
+          "path": "scorecard.json",
+          "sha256": "7b4ab194d5a0bfd9d5b43b143d484064c7e48394c1d8b5ee14939de76a428889"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "exposures.jsonl",
+          "sha256": "cfd78954337c7727c1a567809192196159c70edf43baf823d1d8acb7ae895842"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "outcomes.jsonl",
+          "sha256": "ac91045ecde666091e1b100f146a9e8613808db43d3adfd83b56b17de1abfe23"
+        },
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "8f09b6e47cbc457ee30394a209e8e428ab751fccc84ed21ad6d69cde0616477d"
+        }
+      ],
+      "evidence_outcome": "Failed",
+      "execution_state": "Completed",
+      "expected": {
+        "rates": {
+          "control": "4/7",
+          "treatment": "2/5"
+        },
+        "scorecard_rate_difference": {
+          "control": "0",
+          "treatment": "3/20"
+        }
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C03",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.denominator; $.numerator; $.outcome_mapping",
+          "path": "metric.json",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "metric.sql",
+          "sha256": "ae90d6bf47ae0d0878a52fe35100ff05ce60afb6b3a28064bc341366e67996dd"
+        }
+      ],
+      "evidence_outcome": "Failed",
+      "execution_state": "Completed",
+      "expected": {
+        "affected_arm": "treatment",
+        "rule": "distinct users"
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C07",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "8f09b6e47cbc457ee30394a209e8e428ab751fccc84ed21ad6d69cde0616477d"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "scope": "supplied analytical artifacts only"
+      },
+      "minimum_request": {
+        "provider": "source owner",
+        "unlocks": "comparability",
+        "what": "aligned source filters/window/snapshot and definitions"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C08",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "lines 1-end",
+          "path": "assignments.jsonl",
+          "sha256": "3bdfa886554e8df335d0eb9a55b9d843914a251c2d271b28f69b80a4ab85bf4f"
+        },
+        {
+          "locator": "lines 1-end",
+          "path": "exposures.jsonl",
+          "sha256": "cfd78954337c7727c1a567809192196159c70edf43baf823d1d8acb7ae895842"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "conflicting_ids": 0,
+        "extra_encounters": 3,
+        "identical_event_replays": 0,
+        "orphans": 0,
+        "repeat_arm": "treatment",
+        "scope": "supplied records only",
+        "severity": "informational"
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C09",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "8f09b6e47cbc457ee30394a209e8e428ab751fccc84ed21ad6d69cde0616477d"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "may_remain_unresolved": true,
+        "provider": "implementation or data owner",
+        "unlocks": "delivery assessment",
+        "what": "render traces and relevant application/SDK code for assignment-to-render path"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C10",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "8f09b6e47cbc457ee30394a209e8e428ab751fccc84ed21ad6d69cde0616477d"
+        }
+      ],
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": null,
+      "minimum_request": {
+        "may_remain_unresolved": true,
+        "provider": "implementation or data owner",
+        "unlocks": "production completeness",
+        "what": "independent capture reconciliation and export completeness evidence"
+      },
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    },
+    {
+      "check_id": "C11",
+      "check_version": "1.0.0",
+      "critical": true,
+      "evidence_locators": [
+        {
+          "locator": "$.artifacts",
+          "path": "inventory.json",
+          "sha256": "8f09b6e47cbc457ee30394a209e8e428ab751fccc84ed21ad6d69cde0616477d"
+        }
+      ],
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "forbidden_claims": [
+          "whole experiment verified",
+          "causal validity established",
+          "statistically significant",
+          "eligible to ship",
+          "production capture proven",
+          "rendering proven",
+          "repeat encounter proves defective duplicate delivery"
+        ]
+      },
+      "minimum_request": null,
+      "wording": "Equivalent scoped wording accepted; no broader conclusion."
+    }
+  ],
+  "case": "E01",
+  "contract_version": "1.0.0",
+  "design": {
+    "assigned": [
+      9,
+      7
+    ],
+    "buyers": [
+      4,
+      2
+    ],
+    "exposed": [
+      7,
+      5
+    ],
+    "extra": 3,
+    "repeat_arm": "treatment"
+  },
+  "forbidden_claims": [
+    "whole experiment verified",
+    "causal validity established",
+    "statistically significant",
+    "eligible to ship",
+    "production capture proven",
+    "rendering proven",
+    "repeat encounter proves defective duplicate delivery"
+  ],
+  "form": "B",
+  "input_hashes": {
+    "assignments.jsonl": "3bdfa886554e8df335d0eb9a55b9d843914a251c2d271b28f69b80a4ab85bf4f",
+    "configuration.json": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5",
+    "exposures.jsonl": "cfd78954337c7727c1a567809192196159c70edf43baf823d1d8acb7ae895842",
+    "inventory.json": "8f09b6e47cbc457ee30394a209e8e428ab751fccc84ed21ad6d69cde0616477d",
+    "metric.json": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181",
+    "metric.sql": "ae90d6bf47ae0d0878a52fe35100ff05ce60afb6b3a28064bc341366e67996dd",
+    "notes.txt": "96df271ae6003948255296f2e8abcfe502e9b6817fd53e95007edd71be2f7309",
+    "outcomes.jsonl": "ac91045ecde666091e1b100f146a9e8613808db43d3adfd83b56b17de1abfe23",
+    "scorecard.json": "7b4ab194d5a0bfd9d5b43b143d484064c7e48394c1d8b5ee14939de76a428889",
+    "task.txt": "a7b2b15830daf13787ca82b6068795c53c5f0ea5c7ba8b878f341fb53f8eb0b2"
+  },
+  "oracle_version": "1.0.0-draft",
+  "packet_id": "p-61ab",
+  "rationale": "Counts and fractions hand-specified from fixture design; no evaluator imported or run. Independent recomputation required before freeze.",
+  "review_status": "awaiting independent review"
+}

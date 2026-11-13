@@ -1,0 +1,11 @@
+# Guardrail input contract 1.0.0
+
+Add `guardrails.json` to the package and inventory with its SHA-256. Package limits remain 10 files and 50 MB; guardrail observations additionally have a 100,000-row cap. Maximum 10 metrics. A missing file blocks the decision but does not fabricate a primary-analysis failure.
+
+Top-level fields: `schema_version: "1.0.0"`, `experiment_id`, `revision`, `window_start`, `window_end`, and `metrics`. Scope must exactly match configuration.json. Each metric has a unique `id`, nonempty `version`, exact textual `definition`, and `rows`. Each row is `{"user_id": "control-0", "value": false}`. Include exactly one literal Boolean observation for every assigned user in each required metric, including explicit false observations. Duplicate, missing and outside-population users block analysis. The flag means whether that user met the binary definition during the declared window. Pebbles does not independently verify event attribution or compute these flags from upstream events.
+
+In `configuration.json.analysis_plan` (or the UI), `guardrails` contains objects with `id`, `name`, `version`, `definition`, `direction` (`lower` or `higher`), and `max_harm_pp` (finite 0–100). Definition/version must match evidence exactly. A 2-point harm limit means 1% to 3% for a lower-is-better metric, not 2% relative growth. The UI saves overrides in the result while retaining original configuration evidence.
+
+Required declarations: `guardrails_predeclared`, `guardrails_complete`, `guardrails_set_complete`, `business_review_complete` must be literal true to support a recommendation; `business_review_notes` needs a nonempty rationale. These are explicitly supplied attestations, not independent proof. No guardrails is an unresolved review, not a safe result. Metrics present in the file but not declared required are not decision guardrails; the analyst must confirm the set is complete.
+
+Use `examples/analysis/ship-supported` as a complete working package; `ship-harm` and `ship-uncertain` illustrate blocked decisions. Results are saved under `decision` with guardrail rates, adjusted confidence intervals, harm-oriented intervals, supporting reasons, blockers, remaining assumptions, and the plan. Saved old results are never retroactively assigned a new recommendation.

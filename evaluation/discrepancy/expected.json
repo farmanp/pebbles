@@ -1,0 +1,18 @@
+{
+  "clean": {
+    "diagnosis": "agreement",
+    "conclusion_changed": false
+  },
+  "denominator": {
+    "diagnosis": "denominator_mismatch",
+    "conclusion_changed": true
+  },
+  "missing-users": {
+    "diagnosis": "population_mismatch",
+    "conclusion_changed": true
+  },
+  "wrong-metric": {
+    "diagnosis": "metric_mismatch",
+    "conclusion_changed": true
+  }
+}

@@ -1,0 +1,383 @@
+{
+  "schema_version": "1.0.0",
+  "prototype_version": "0.1.0",
+  "run_id": "3f558043-4e6f-450d-89d6-fbab0e78aed8",
+  "created_at": "2026-11-13T05:14:14.137331+00:00",
+  "input_hashes": {
+    "exposures.jsonl": "fd7bfae7b324833d5b488610160c736d7b6898ea8ab49ccdc6b5e00d43928c90",
+    "assignments.jsonl": "57ad938acfa6bedcb3c6c8fa6faaedf6cf19c4ae985bc2ffaf080dfd623d9f92",
+    "task.txt": "a7b2b15830daf13787ca82b6068795c53c5f0ea5c7ba8b878f341fb53f8eb0b2",
+    "notes.txt": "96df271ae6003948255296f2e8abcfe502e9b6817fd53e95007edd71be2f7309",
+    "scorecard.json": "e85279e92979999bc47f80b23d53a10ec354f326f1246824dfaf84975689d3b3",
+    "configuration.json": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5",
+    "metric.json": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181",
+    "outcomes.jsonl": "5391039c97729fbf33f18426704deba8f540cf99600061318dca4e2cb44e8b9c",
+    "inventory.json": "5ad004fef4f3fd271814a564552df7b3a16dfe4ac9906e3edc239910b5086e99",
+    "metric.sql": "7a19f0bacda89981956cda9e2757b2d532d47ea07c801a3b4174c4e42be84afc"
+  },
+  "execution_state": "Completed",
+  "uncompleted_checks": [],
+  "headline": "Evidence discrepancies require investigation",
+  "scope": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+  "findings": [
+    {
+      "check_id": "C01",
+      "check_version": "1.0.0",
+      "question": "What records are present?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Verified",
+      "explanation": "These are literal counts in the supplied files; they do not establish metric eligibility or production coverage.",
+      "values": {
+        "assignments.jsonl": {
+          "rows": 8,
+          "distinct_users": 8
+        },
+        "exposures.jsonl": {
+          "rows": 7,
+          "distinct_users": 6
+        },
+        "outcomes.jsonl": {
+          "rows": 3,
+          "distinct_users": 3
+        }
+      },
+      "evidence": [
+        {
+          "path": "assignments.jsonl",
+          "locator": "all records",
+          "sha256": "57ad938acfa6bedcb3c6c8fa6faaedf6cf19c4ae985bc2ffaf080dfd623d9f92"
+        },
+        {
+          "path": "exposures.jsonl",
+          "locator": "all records",
+          "sha256": "fd7bfae7b324833d5b488610160c736d7b6898ea8ab49ccdc6b5e00d43928c90"
+        },
+        {
+          "path": "outcomes.jsonl",
+          "locator": "all records",
+          "sha256": "5391039c97729fbf33f18426704deba8f540cf99600061318dca4e2cb44e8b9c"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": null
+    },
+    {
+      "check_id": "C02",
+      "check_version": "1.0.0",
+      "question": "What does the declared metric calculate?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Verified",
+      "explanation": "Computed v1 over the valid subset of supplied records using the declared assignment, identity and time rules. Zero denominators are undefined.",
+      "values": {
+        "control": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 3,
+          "numerator": 1,
+          "denominator": 3,
+          "rate": "1/3",
+          "rate_percent": 33.333
+        },
+        "treatment": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 4,
+          "numerator": 2,
+          "denominator": 3,
+          "rate": "2/3",
+          "rate_percent": 66.667
+        }
+      },
+      "evidence": [
+        {
+          "path": "configuration.json",
+          "locator": "/",
+          "sha256": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5"
+        },
+        {
+          "path": "metric.json",
+          "locator": "/",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "path": "assignments.jsonl",
+          "locator": "all records",
+          "sha256": "57ad938acfa6bedcb3c6c8fa6faaedf6cf19c4ae985bc2ffaf080dfd623d9f92"
+        },
+        {
+          "path": "exposures.jsonl",
+          "locator": "all records",
+          "sha256": "fd7bfae7b324833d5b488610160c736d7b6898ea8ab49ccdc6b5e00d43928c90"
+        },
+        {
+          "path": "outcomes.jsonl",
+          "locator": "all records",
+          "sha256": "5391039c97729fbf33f18426704deba8f540cf99600061318dca4e2cb44e8b9c"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": null
+    },
+    {
+      "check_id": "C03",
+      "check_version": "1.0.0",
+      "question": "Does the supplied SQL use the intended denominator?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Verified",
+      "explanation": "The denominator expression counts distinct user IDs. This is expression inspection only; the rest of the SQL and general query equivalence are not verified.",
+      "values": {
+        "expression": "COUNT(DISTINCT user_id)"
+      },
+      "evidence": [
+        {
+          "path": "metric.json",
+          "locator": "/",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "path": "metric.sql",
+          "locator": "/",
+          "sha256": "7a19f0bacda89981956cda9e2757b2d532d47ea07c801a3b4174c4e42be84afc"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": null
+    },
+    {
+      "check_id": "C04",
+      "check_version": "1.0.0",
+      "question": "Do the scorecard fields agree arithmetically?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Verified",
+      "explanation": "Reported percentages match the scorecard’s own numerator and denominator fields within three-decimal percentage rounding. This does not validate the intended denominator.",
+      "values": {
+        "control": {
+          "denominator": 3,
+          "distinct_exposed": 3,
+          "numerator": 1,
+          "rate_percent": 33.333
+        },
+        "treatment": {
+          "denominator": 3,
+          "distinct_exposed": 4,
+          "numerator": 2,
+          "rate_percent": 66.667
+        }
+      },
+      "evidence": [
+        {
+          "path": "scorecard.json",
+          "locator": "/",
+          "sha256": "e85279e92979999bc47f80b23d53a10ec354f326f1246824dfaf84975689d3b3"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": null
+    },
+    {
+      "check_id": "C05",
+      "check_version": "1.0.0",
+      "question": "Does the scorecard match the declared calculation?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Insufficient evidence",
+      "explanation": "Semantic agreement is unresolved: metric definition/calculation or shared source scope is not established. A numerical discrepancy alone cannot decide which source is correct.",
+      "values": null,
+      "evidence": [
+        {
+          "path": "configuration.json",
+          "locator": "/",
+          "sha256": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5"
+        },
+        {
+          "path": "metric.json",
+          "locator": "/",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "path": "assignments.jsonl",
+          "locator": "all records",
+          "sha256": "57ad938acfa6bedcb3c6c8fa6faaedf6cf19c4ae985bc2ffaf080dfd623d9f92"
+        },
+        {
+          "path": "exposures.jsonl",
+          "locator": "all records",
+          "sha256": "fd7bfae7b324833d5b488610160c736d7b6898ea8ab49ccdc6b5e00d43928c90"
+        },
+        {
+          "path": "outcomes.jsonl",
+          "locator": "all records",
+          "sha256": "5391039c97729fbf33f18426704deba8f540cf99600061318dca4e2cb44e8b9c"
+        },
+        {
+          "path": "scorecard.json",
+          "locator": "/",
+          "sha256": "e85279e92979999bc47f80b23d53a10ec354f326f1246824dfaf84975689d3b3"
+        },
+        {
+          "path": "inventory.json",
+          "locator": "/",
+          "sha256": "5ad004fef4f3fd271814a564552df7b3a16dfe4ac9906e3edc239910b5086e99"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": "Obtain a resolved metric definition and aligned source provenance from the metric/data owner."
+    },
+    {
+      "check_id": "C06",
+      "check_version": "1.0.0",
+      "question": "Do the reported and exported exposure counts agree?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Failed",
+      "explanation": "The scorecard and exposure export contain different distinct-user counts. This establishes a literal discrepancy, not which source is correct.",
+      "values": {
+        "control": {
+          "reported_distinct_exposed": 3,
+          "export_distinct_users": 3
+        },
+        "treatment": {
+          "reported_distinct_exposed": 4,
+          "export_distinct_users": 3
+        }
+      },
+      "evidence": [
+        {
+          "path": "scorecard.json",
+          "locator": "/",
+          "sha256": "e85279e92979999bc47f80b23d53a10ec354f326f1246824dfaf84975689d3b3"
+        },
+        {
+          "path": "exposures.jsonl",
+          "locator": "all records",
+          "sha256": "fd7bfae7b324833d5b488610160c736d7b6898ea8ab49ccdc6b5e00d43928c90"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": "Ask the data owner to reconcile source filters, snapshots and the cited counts."
+    },
+    {
+      "check_id": "C07",
+      "check_version": "1.0.0",
+      "question": "Do the sources declare a shared analytical scope?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Insufficient evidence",
+      "explanation": "Population, filters, window or snapshot are unknown or inconsistent. Neither the scorecard nor the export can be treated as authoritative.",
+      "values": null,
+      "evidence": [
+        {
+          "path": "inventory.json",
+          "locator": "/",
+          "sha256": "5ad004fef4f3fd271814a564552df7b3a16dfe4ac9906e3edc239910b5086e99"
+        },
+        {
+          "path": "configuration.json",
+          "locator": "/",
+          "sha256": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5"
+        },
+        {
+          "path": "metric.json",
+          "locator": "/",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": "Ask the data owner for aligned export filters, population, window and snapshot metadata."
+    },
+    {
+      "check_id": "C08",
+      "check_version": "1.0.0",
+      "question": "Which supplied records qualify or conflict?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Verified",
+      "explanation": "Identified 0 excluded records, 0 identity conflicts, 0 identical replays and 1 repeat encounters. A repeat encounter is not itself a defect; an orphan in these files does not prove a production tracking failure.",
+      "values": {
+        "excluded": [],
+        "conflicts": [],
+        "identical_replays": 0,
+        "repeat_encounters": 1
+      },
+      "evidence": [
+        {
+          "path": "configuration.json",
+          "locator": "/",
+          "sha256": "465e98c2ba53f73f8a9c0cb3fcc94449674005fe13d7edfb9b306c37098a44b5"
+        },
+        {
+          "path": "metric.json",
+          "locator": "/",
+          "sha256": "120e51d60c4c77413d81dcf4087601dd5052d831169003e8e9ebf2745d4c4181"
+        },
+        {
+          "path": "assignments.jsonl",
+          "locator": "all records",
+          "sha256": "57ad938acfa6bedcb3c6c8fa6faaedf6cf19c4ae985bc2ffaf080dfd623d9f92"
+        },
+        {
+          "path": "exposures.jsonl",
+          "locator": "all records",
+          "sha256": "fd7bfae7b324833d5b488610160c736d7b6898ea8ab49ccdc6b5e00d43928c90"
+        },
+        {
+          "path": "outcomes.jsonl",
+          "locator": "all records",
+          "sha256": "5391039c97729fbf33f18426704deba8f540cf99600061318dca4e2cb44e8b9c"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": null
+    },
+    {
+      "check_id": "C09",
+      "check_version": "1.0.0",
+      "question": "Was treatment actually rendered correctly?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Insufficient evidence",
+      "explanation": "Analytical files do not establish that treatment was actually rendered correctly. This prototype does not validate application or SDK behavior.",
+      "values": null,
+      "evidence": [
+        {
+          "path": "inventory.json",
+          "locator": "/",
+          "sha256": "5ad004fef4f3fd271814a564552df7b3a16dfe4ac9906e3edc239910b5086e99"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": "Ask the implementation owner for relevant render/instrumentation evidence if delivery is decision-critical."
+    },
+    {
+      "check_id": "C10",
+      "check_version": "1.0.0",
+      "question": "Do these exports establish production completeness?",
+      "scope": "Supplied evidence only",
+      "execution_state": "Completed",
+      "evidence_outcome": "Insufficient evidence",
+      "explanation": "Export counts and completeness declarations do not independently establish capture of all production activity.",
+      "values": null,
+      "evidence": [
+        {
+          "path": "inventory.json",
+          "locator": "/",
+          "sha256": "5ad004fef4f3fd271814a564552df7b3a16dfe4ac9906e3edc239910b5086e99"
+        }
+      ],
+      "limitations": "Findings concern supplied records and declared rules. They do not establish production completeness, treatment rendering, causal validity, significance, or a shipping decision.",
+      "next_evidence_request": "Ask the data owner for independent capture reconciliation and source lineage if completeness is decision-critical."
+    }
+  ],
+  "not_evaluated": [
+    "Statistical significance and causal validity",
+    "Production treatment delivery",
+    "Production capture completeness",
+    "Human shipping judgment",
+    "Independent report-quality scoring (C11)",
+    "Cross-run replay validation (C13; demonstrated separately in tests)"
+  ]
+}

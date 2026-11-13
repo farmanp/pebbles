@@ -1,0 +1,27 @@
+session_id,phase,period,packet_id,condition,time_limit_minutes,family,form,status
+S01,Scored,1,r-482,Usual,15,denominator,A,Not run
+S01,Scored,2,r-196,Pebbles,15,population,A,Not run
+S01,Scored,3,r-563,Usual,15,metric,A,Not run
+S01,Scored,4,r-918,Pebbles,15,clean,A,Not run
+S02,Scored,1,r-824,Usual,15,population,B,Not run
+S02,Scored,2,r-247,Pebbles,15,metric,B,Not run
+S02,Scored,3,r-351,Usual,15,clean,B,Not run
+S02,Scored,4,r-735,Pebbles,15,denominator,B,Not run
+S03,Scored,1,r-563,Pebbles,15,metric,A,Not run
+S03,Scored,2,r-918,Usual,15,clean,A,Not run
+S03,Scored,3,r-482,Pebbles,15,denominator,A,Not run
+S03,Scored,4,r-196,Usual,15,population,A,Not run
+S04,Scored,1,r-351,Pebbles,15,clean,B,Not run
+S04,Scored,2,r-735,Usual,15,denominator,B,Not run
+S04,Scored,3,r-824,Pebbles,15,population,B,Not run
+S04,Scored,4,r-247,Usual,15,metric,B,Not run
+S05,Scored,1,r-735,Usual,15,denominator,B,Not run
+S05,Scored,2,r-824,Pebbles,15,population,B,Not run
+S05,Scored,3,r-247,Usual,15,metric,B,Not run
+S05,Scored,4,r-351,Pebbles,15,clean,B,Not run
+S06,Scored,1,r-563,Pebbles,15,metric,A,Not run
+S06,Scored,2,r-918,Usual,15,clean,A,Not run
+S06,Scored,3,r-482,Pebbles,15,denominator,A,Not run
+S06,Scored,4,r-196,Usual,15,population,A,Not run
+P00,Pilot,1,r-609,Usual,15,denominator,pilot,Not run
+P00,Pilot,2,r-172,Pebbles,15,population,pilot,Not run

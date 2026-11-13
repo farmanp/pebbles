@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "checks": [
+    {
+      "id": "C01",
+      "alias": "record_counts",
+      "question": "What records are present?",
+      "proposition": "Counts of supplied rows and distinct users are correct.",
+      "prerequisites": "Parseable records and documented fields; no metric definition needed for explicitly labeled record facts.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C02",
+      "alias": "metric",
+      "question": "What does the declared metric calculate?",
+      "proposition": "Exact numerator, denominator and rational rate follow the supplied versioned definition.",
+      "prerequisites": "Explicit identity, eligibility, assignment, window and attribution semantics; required event exports; no unresolved relevant event-ID conflict.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C03",
+      "alias": "sql_denominator",
+      "question": "Does the supplied SQL use the intended denominator?",
+      "proposition": "The supported simple SQL denominator uses distinct qualifying users when the definition requires them.",
+      "prerequisites": "Definition and recognizable bounded COUNT(*) versus COUNT(DISTINCT user_id) SQL; never execute SQL.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C04",
+      "alias": "arithmetic",
+      "question": "Do displayed scorecard fields agree arithmetically?",
+      "proposition": "Each nonnegative integer numerator is <= denominator and its displayed rate matches its own fields.",
+      "prerequisites": "Scorecard numerator, denominator, rate and declared rounding. Zero denominator requires undefined rate.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C05",
+      "alias": "scorecard_agreement",
+      "question": "Does the scorecard match the declared calculation?",
+      "proposition": "The reported fields equal the metric calculation over comparable scoped evidence.",
+      "prerequisites": "C02 completed with supported calculation, scorecard, and established shared analytical scope. Missing definition or unresolved comparability gives Insufficient evidence.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C06",
+      "alias": "literal_counts",
+      "question": "Do these two displayed counts equal each other?",
+      "proposition": "The explicitly cited numbers in two supplied artifacts are equal.",
+      "prerequisites": "Two readable fields; comparability is NOT a prerequisite for literal numeric equality. Inequality is Failed without deciding which source is correct.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C07",
+      "alias": "comparability",
+      "question": "Can these sources be compared semantically?",
+      "proposition": "Sources describe the same population, filters, window, snapshot and metric.",
+      "prerequisites": "Provenance establishing those dimensions; unknown scope gives Insufficient evidence, not an assumed match.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C08",
+      "alias": "event_integrity",
+      "question": "Which supplied records qualify or conflict?",
+      "proposition": "Record references and scoped exclusions/replays follow the pinned identity and timing rules.",
+      "prerequisites": "Parseable relevant event and assignment fields; label unknown completeness separately.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C09",
+      "alias": "delivery",
+      "question": "Was treatment actually rendered correctly?",
+      "proposition": "Supplied implementation/render evidence establishes the named delivery behavior.",
+      "prerequisites": "Relevant implementation/render evidence; analytical agreement alone always Insufficient evidence.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C10",
+      "alias": "completeness",
+      "question": "Do these exports establish production completeness?",
+      "proposition": "Independent evidence establishes capture of the specified production population.",
+      "prerequisites": "Independent capture/completeness evidence. A declared synthetic scope is not proof of production completeness.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C11",
+      "alias": "claim_boundaries",
+      "question": "What does this evidence justify?",
+      "proposition": "Report makes no unsupported production, inference, causality, shipping or experiment-wide assurance.",
+      "prerequisites": "Report text and admitted evidence; this is a report-quality assertion, not a new experiment success badge.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C12",
+      "alias": "operational_state",
+      "question": "Which checks executed?",
+      "proposition": "Execution failures are visible with affected propositions and no fabricated outcomes.",
+      "prerequisites": "Planned coverage inventory and operational records; missing evidence is distinct from parser/unsupported/error states.",
+      "version": "1.0.0"
+    },
+    {
+      "id": "C13",
+      "alias": "replay_versioning",
+      "question": "Are results reproducible and immutable?",
+      "proposition": "Identical/reordered inputs yield identical canonical findings; changed definitions create new runs without altering prior evidence.",
+      "prerequisites": "Paired run artifacts, versions and hashes; exclude only run ID/timestamps/runtime/machine metadata from canonical comparison.",
+      "version": "1.0.0"
+    }
+  ]
+}

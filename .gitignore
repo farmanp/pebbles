@@ -1,0 +1,32 @@
+# Python/editor and local secrets
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Analyst inputs, local databases, generated reports and walkthrough artifacts
+/runs/
+/outputs/
+/pilot-self-try/
+*.sqlite
+*.sqlite-*
+*.db
+*.zip
+# Rebuildable fixtures and third-party materials (not redistributed)
+/evaluation/packages/
+/examples/analysis/*/
+/public_comparisons/cookie_cats/source/
+/public_comparisons/cookie_cats/packet/
+/public_comparisons/cookie_cats/cases/
+/public_comparisons/cookie_cats/run-*/
+/evaluation/discrepancy/runs/
+/evaluation/analyst-pilot-v1/packets/
+/evaluation/analyst-pilot-v1/distribute/

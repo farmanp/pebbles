@@ -1,0 +1,1 @@
+participant_id,normal_packet,assisted_packet,normal_total_minutes,assisted_total_minutes,ratio,strictly_lower,normal_wait_minutes,assisted_wait_minutes,critical_incomplete,quality_pass

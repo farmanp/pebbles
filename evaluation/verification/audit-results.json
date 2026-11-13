@@ -1,0 +1,569 @@
+{
+  "scope": "materials only; not product execution or human difficulty validation",
+  "assertions": 1629,
+  "failures": [],
+  "packets": [
+    {
+      "packet": "p-7c41",
+      "case": "E00",
+      "form": "canonical",
+      "recomputed": {
+        "control": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 3,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/3",
+          "v2_rate": "1/4"
+        },
+        "treatment": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 4,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/3",
+          "v2_rate": "1/2"
+        }
+      }
+    },
+    {
+      "packet": "p-a893",
+      "case": "E01",
+      "form": "canonical",
+      "recomputed": {
+        "control": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 3,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/3",
+          "v2_rate": "1/4"
+        },
+        "treatment": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 4,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/3",
+          "v2_rate": "1/2"
+        }
+      }
+    },
+    {
+      "packet": "p-39f2",
+      "case": "E02",
+      "form": "canonical",
+      "recomputed": null,
+      "scope": "scorecard arithmetic only; no event exports or intended metric supplied",
+      "scorecard": {
+        "control": {
+          "denominator": 3,
+          "distinct_exposed": 3,
+          "numerator": 1,
+          "rate_percent": 33.333
+        },
+        "treatment": {
+          "denominator": 3,
+          "distinct_exposed": 3,
+          "numerator": 2,
+          "rate_percent": 66.667
+        }
+      }
+    },
+    {
+      "packet": "p-c617",
+      "case": "E03",
+      "form": "canonical",
+      "recomputed": {
+        "control": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 3,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/3",
+          "v2_rate": "1/4"
+        },
+        "treatment": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 4,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/3",
+          "v2_rate": "1/2"
+        }
+      }
+    },
+    {
+      "packet": "p-82da",
+      "case": "E04",
+      "form": "canonical",
+      "recomputed": {
+        "control": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 3,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/3",
+          "v2_rate": "1/4"
+        },
+        "treatment": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 4,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/3",
+          "v2_rate": "1/2"
+        }
+      }
+    },
+    {
+      "packet": "p-5b09",
+      "case": "E05",
+      "form": "canonical",
+      "recomputed": {
+        "control": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 3,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/3",
+          "v2_rate": "1/4"
+        },
+        "treatment": {
+          "assigned": 4,
+          "distinct_exposed": 3,
+          "exposure_rows": 4,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/3",
+          "v2_rate": "1/2"
+        }
+      }
+    },
+    {
+      "packet": "p-d140",
+      "case": "E00",
+      "form": "A",
+      "recomputed": {
+        "control": {
+          "assigned": 6,
+          "distinct_exposed": 4,
+          "exposure_rows": 6,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "1/2",
+          "v2_rate": "1/3"
+        },
+        "treatment": {
+          "assigned": 7,
+          "distinct_exposed": 5,
+          "exposure_rows": 5,
+          "purchasers": 3,
+          "v2_purchasers": 3,
+          "rate": "3/5",
+          "v2_rate": "3/7"
+        }
+      }
+    },
+    {
+      "packet": "p-296e",
+      "case": "E00",
+      "form": "B",
+      "recomputed": {
+        "control": {
+          "assigned": 8,
+          "distinct_exposed": 6,
+          "exposure_rows": 6,
+          "purchasers": 3,
+          "v2_purchasers": 3,
+          "rate": "1/2",
+          "v2_rate": "3/8"
+        },
+        "treatment": {
+          "assigned": 6,
+          "distinct_exposed": 4,
+          "exposure_rows": 7,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/4",
+          "v2_rate": "1/6"
+        }
+      }
+    },
+    {
+      "packet": "p-ef32",
+      "case": "E01",
+      "form": "A",
+      "recomputed": {
+        "control": {
+          "assigned": 7,
+          "distinct_exposed": 5,
+          "exposure_rows": 7,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/5",
+          "v2_rate": "2/7"
+        },
+        "treatment": {
+          "assigned": 8,
+          "distinct_exposed": 6,
+          "exposure_rows": 6,
+          "purchasers": 4,
+          "v2_purchasers": 4,
+          "rate": "2/3",
+          "v2_rate": "1/2"
+        }
+      }
+    },
+    {
+      "packet": "p-61ab",
+      "case": "E01",
+      "form": "B",
+      "recomputed": {
+        "control": {
+          "assigned": 9,
+          "distinct_exposed": 7,
+          "exposure_rows": 7,
+          "purchasers": 4,
+          "v2_purchasers": 4,
+          "rate": "4/7",
+          "v2_rate": "4/9"
+        },
+        "treatment": {
+          "assigned": 7,
+          "distinct_exposed": 5,
+          "exposure_rows": 8,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/5",
+          "v2_rate": "2/7"
+        }
+      }
+    },
+    {
+      "packet": "p-948c",
+      "case": "E02",
+      "form": "A",
+      "recomputed": null,
+      "scope": "scorecard arithmetic only; no event exports or intended metric supplied",
+      "scorecard": {
+        "control": {
+          "denominator": 4,
+          "distinct_exposed": 4,
+          "numerator": 1,
+          "rate_percent": 25.0
+        },
+        "treatment": {
+          "denominator": 6,
+          "distinct_exposed": 6,
+          "numerator": 4,
+          "rate_percent": 66.667
+        }
+      }
+    },
+    {
+      "packet": "p-b705",
+      "case": "E02",
+      "form": "B",
+      "recomputed": null,
+      "scope": "scorecard arithmetic only; no event exports or intended metric supplied",
+      "scorecard": {
+        "control": {
+          "denominator": 7,
+          "distinct_exposed": 7,
+          "numerator": 3,
+          "rate_percent": 42.857
+        },
+        "treatment": {
+          "denominator": 5,
+          "distinct_exposed": 5,
+          "numerator": 2,
+          "rate_percent": 40.0
+        }
+      }
+    },
+    {
+      "packet": "p-03de",
+      "case": "E03",
+      "form": "A",
+      "recomputed": {
+        "control": {
+          "assigned": 7,
+          "distinct_exposed": 5,
+          "exposure_rows": 7,
+          "purchasers": 3,
+          "v2_purchasers": 3,
+          "rate": "3/5",
+          "v2_rate": "3/7"
+        },
+        "treatment": {
+          "assigned": 9,
+          "distinct_exposed": 6,
+          "exposure_rows": 6,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "1/3",
+          "v2_rate": "2/9"
+        }
+      }
+    },
+    {
+      "packet": "p-f821",
+      "case": "E03",
+      "form": "B",
+      "recomputed": {
+        "control": {
+          "assigned": 10,
+          "distinct_exposed": 7,
+          "exposure_rows": 7,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/7",
+          "v2_rate": "1/5"
+        },
+        "treatment": {
+          "assigned": 8,
+          "distinct_exposed": 5,
+          "exposure_rows": 8,
+          "purchasers": 3,
+          "v2_purchasers": 3,
+          "rate": "3/5",
+          "v2_rate": "3/8"
+        }
+      }
+    },
+    {
+      "packet": "p-475a",
+      "case": "E04",
+      "form": "A",
+      "recomputed": {
+        "control": {
+          "assigned": 8,
+          "distinct_exposed": 5,
+          "exposure_rows": 7,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "2/5",
+          "v2_rate": "1/4"
+        },
+        "treatment": {
+          "assigned": 9,
+          "distinct_exposed": 7,
+          "exposure_rows": 7,
+          "purchasers": 4,
+          "v2_purchasers": 4,
+          "rate": "4/7",
+          "v2_rate": "4/9"
+        }
+      }
+    },
+    {
+      "packet": "p-ac60",
+      "case": "E04",
+      "form": "B",
+      "recomputed": {
+        "control": {
+          "assigned": 10,
+          "distinct_exposed": 8,
+          "exposure_rows": 8,
+          "purchasers": 5,
+          "v2_purchasers": 5,
+          "rate": "5/8",
+          "v2_rate": "1/2"
+        },
+        "treatment": {
+          "assigned": 7,
+          "distinct_exposed": 4,
+          "exposure_rows": 7,
+          "purchasers": 1,
+          "v2_purchasers": 1,
+          "rate": "1/4",
+          "v2_rate": "1/7"
+        }
+      }
+    },
+    {
+      "packet": "p-186f",
+      "case": "E05",
+      "form": "A",
+      "recomputed": {
+        "control": {
+          "assigned": 9,
+          "distinct_exposed": 6,
+          "exposure_rows": 8,
+          "purchasers": 2,
+          "v2_purchasers": 2,
+          "rate": "1/3",
+          "v2_rate": "2/9"
+        },
+        "treatment": {
+          "assigned": 8,
+          "distinct_exposed": 5,
+          "exposure_rows": 5,
+          "purchasers": 3,
+          "v2_purchasers": 3,
+          "rate": "3/5",
+          "v2_rate": "3/8"
+        }
+      }
+    },
+    {
+      "packet": "p-73bd",
+      "case": "E05",
+      "form": "B",
+      "recomputed": {
+        "control": {
+          "assigned": 7,
+          "distinct_exposed": 5,
+          "exposure_rows": 5,
+          "purchasers": 3,
+          "v2_purchasers": 3,
+          "rate": "3/5",
+          "v2_rate": "3/7"
+        },
+        "treatment": {
+          "assigned": 10,
+          "distinct_exposed": 8,
+          "exposure_rows": 11,
+          "purchasers": 4,
+          "v2_purchasers": 4,
+          "rate": "1/2",
+          "v2_rate": "2/5"
+        }
+      }
+    }
+  ],
+  "probes": [
+    {
+      "probe": "t-14",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "t-25",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "t-36",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "t-47",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "i-18",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "i-29",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "i-30",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "i-41",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 1
+    },
+    {
+      "probe": "i-52",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "i-63",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [
+        "X-C1"
+      ],
+      "replays": 0
+    },
+    {
+      "probe": "z-16",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "m-17",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "o-18",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "o-29",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "r-10",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "r-21",
+      "review": "overlay inspected and independently reconstructed",
+      "conflicts": [],
+      "replays": 0
+    },
+    {
+      "probe": "o-40",
+      "review": "recipe inspected, not executed"
+    },
+    {
+      "probe": "o-51",
+      "review": "recipe inspected, not executed"
+    },
+    {
+      "probe": "o-62",
+      "review": "recipe inspected, not executed"
+    },
+    {
+      "probe": "o-73",
+      "review": "recipe inspected, not executed"
+    },
+    {
+      "probe": "o-84",
+      "review": "recipe inspected, not executed"
+    },
+    {
+      "probe": "o-95",
+      "review": "recipe inspected, not executed"
+    }
+  ]
+}

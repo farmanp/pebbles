@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "is_synthetic": true,
+    "purpose": "exact known-answer fixture, not statistical power",
+    "experiment_id": "checkout-button",
+    "revision": 1
+  },
+  "base": {
+    "control": {
+      "assigned": 4,
+      "distinct_exposed": 3,
+      "purchasers": 1,
+      "metric_v1": {
+        "numerator": 1,
+        "denominator": 3
+      },
+      "metric_v2": {
+        "numerator": 1,
+        "denominator": 4
+      }
+    },
+    "treatment": {
+      "assigned": 4,
+      "distinct_exposed": 3,
+      "purchasers": 2,
+      "metric_v1": {
+        "numerator": 2,
+        "denominator": 3
+      },
+      "metric_v2": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    }
+  },
+  "duplicate_mutation": {
+    "treatment_exposure_rows": 4,
+    "treatment_distinct_exposed": 3,
+    "metric_v1_treatment": {
+      "numerator": 2,
+      "denominator": 3
+    },
+    "diagnostic": "repeated_user_exposure"
+  },
+  "orphan_mutation": {
+    "invalid_exposure_user": "X1",
+    "expected_diagnostic": "orphan_exposure",
+    "valid_exposure_counts_unchanged": true
+  }
+}

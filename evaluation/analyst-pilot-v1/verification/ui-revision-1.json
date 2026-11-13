@@ -1,0 +1,6 @@
+{
+  "status": "AI Computer Use recheck completed; no human pilot run",
+  "app_js_sha256": "3a4d67a24b102fce0b49aa03de36f104ee01090794d834103542658f482b4764",
+  "run_id": "82c57098-fccc-48f9-a6a8-82a0d27526dc",
+  "note": "Supersedes interactive app.js hash in original manifest; preserve original manifest and restage participant runtime before pilot."
+}

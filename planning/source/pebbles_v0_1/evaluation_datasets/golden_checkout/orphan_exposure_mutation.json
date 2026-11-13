@@ -1,0 +1,13 @@
+{
+  "operation": "append",
+  "table": "exposures",
+  "record": {
+    "exposure_id": "X-orphan",
+    "experiment_id": "checkout-button",
+    "revision": 1,
+    "user_id": "X1",
+    "variant_id": "treatment",
+    "exposed_at": "2026-01-01T12:05:10Z"
+  },
+  "expected_diagnostic": "orphan_exposure"
+}

@@ -1,0 +1,13 @@
+{
+  "operation": "append",
+  "table": "exposures",
+  "record": {
+    "exposure_id": "X-T2-retry",
+    "experiment_id": "checkout-button",
+    "revision": 1,
+    "user_id": "T2",
+    "variant_id": "treatment",
+    "exposed_at": "2026-01-01T12:05:10Z"
+  },
+  "expected_diagnostic": "repeated_user_exposure"
+}

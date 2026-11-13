@@ -1,0 +1,627 @@
+{
+  "application_rule": "copy base to isolated scratch; apply operations; regenerate inventory hashes and file list; never modify originals. Recipes are evaluation harness instructions, not product implementation.",
+  "probes": [
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control": {
+          "denominator": 3,
+          "numerator": 1,
+          "rate": "1/3"
+        },
+        "reason": "before exposure excluded",
+        "record": "outcomes.jsonl last line: outcome_id=P-C2-probe",
+        "treatment": {
+          "denominator": 3,
+          "numerator": 2,
+          "rate": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "294c8a460ccf8466b16f44f1d4d1505876a98b710cfc64aa788c9a9e1c27284b",
+      "probe_id": "t-14",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control": {
+          "denominator": 3,
+          "numerator": 1,
+          "rate": "1/3"
+        },
+        "reason": "exact exposure excluded",
+        "record": "outcomes.jsonl last line: outcome_id=P-C2-probe",
+        "treatment": {
+          "denominator": 3,
+          "numerator": 2,
+          "rate": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "c65cae481feb90f792a7328ccaab03890c29d97a90fc5a50de5dc2c598f7d922",
+      "probe_id": "t-25",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control": {
+          "denominator": 3,
+          "numerator": 1,
+          "rate": "1/3"
+        },
+        "reason": "exclusive end excluded",
+        "record": "outcomes.jsonl last line: outcome_id=P-C2-probe",
+        "treatment": {
+          "denominator": 3,
+          "numerator": 2,
+          "rate": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "be6684271f9f8459ee602efe34ae47849b512b216e7e28fd6585f32e9a575cb4",
+      "probe_id": "t-36",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control": {
+          "denominator": 3,
+          "numerator": 2,
+          "rate": "2/3"
+        },
+        "reason": "before end included",
+        "record": "outcomes.jsonl last line: outcome_id=P-C2-probe",
+        "treatment": {
+          "denominator": 3,
+          "numerator": 2,
+          "rate": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "66adb51fe5e5cd828c80d8d57376ac017a1474ba3fb3c01cda750a2fe7f71812",
+      "probe_id": "t-47",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "excluded_record_id": "X-revision",
+        "reason": "revision mismatch",
+        "request": {
+          "provider": "data owner",
+          "unlocks": "resolve mismatch without assuming production root cause",
+          "what": "assignment scope/completeness or corrected matching record"
+        },
+        "valid_subset_exposed": {
+          "control": 3,
+          "treatment": 3
+        },
+        "valid_subset_rates": {
+          "control": "1/3",
+          "treatment": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "903043f9faeed77ef610d454c11b022d7a994d74cb3f39e0606120b5011f74e1",
+      "probe_id": "i-18",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "excluded_record_id": "X-arm",
+        "reason": "conflicting arm",
+        "request": {
+          "provider": "data owner",
+          "unlocks": "resolve mismatch without assuming production root cause",
+          "what": "assignment scope/completeness or corrected matching record"
+        },
+        "valid_subset_exposed": {
+          "control": 3,
+          "treatment": 3
+        },
+        "valid_subset_rates": {
+          "control": "1/3",
+          "treatment": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "26dfb45704d6750f476fab39d02eef817133dab2c32a17344c632671005b72b2",
+      "probe_id": "i-29",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "excluded_record_id": "X-orphan",
+        "reason": "orphan relative to supplied export",
+        "request": {
+          "provider": "data owner",
+          "unlocks": "resolve mismatch without assuming production root cause",
+          "what": "assignment scope/completeness or corrected matching record"
+        },
+        "valid_subset_exposed": {
+          "control": 3,
+          "treatment": 3
+        },
+        "valid_subset_rates": {
+          "control": "1/3",
+          "treatment": "2/3"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "3327f3c28a47376ba945b25212b0d6aab8d74895e7181dcd13db7ba519324c5f",
+      "probe_id": "i-30",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control_distinct": 3,
+        "control_rate": "1/3",
+        "effective_control_rows": 3,
+        "note": "identical replay informational; count once",
+        "replay_id": "X-C1"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "4f2f7d748ce22cfe66c38a805ebbbbaa308988dec38d63feb55bd9df2829a349",
+      "probe_id": "i-41",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "control_distinct": 3,
+        "control_rate": "1/3",
+        "control_rows": 4,
+        "note": "new event ID legitimate repeat informational"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "04e1ca6db20fd0814e802a3df2a468bf0c01ceb9be98b7868eb20e337d3e20f9",
+      "probe_id": "i-52",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C02",
+        "C05",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": null,
+      "execution_state": "blocked-invalid-input",
+      "expected": {
+        "conflicting_id": "X-C1",
+        "control_metric": "blocked pending source resolution",
+        "request": {
+          "provider": "data owner",
+          "unlocks": "control attribution and reconciliation",
+          "what": "authoritative corrected payload or identity rule"
+        },
+        "treatment_rate": "2/3 may remain separately completed"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "52f3345b171dbc62610ef866d1cb0345f578f32b41b0544b9cefa20a34d2d390",
+      "per_check": {
+        "C02": {
+          "evidence_outcome": null,
+          "execution_state": "blocked-invalid-input",
+          "scope": "affected control arm"
+        },
+        "C05": {
+          "evidence_outcome": null,
+          "execution_state": "blocked-invalid-input",
+          "scope": "affected control arm"
+        },
+        "C08": {
+          "evidence_outcome": "Verified",
+          "execution_state": "Completed",
+          "proposition": "X-C1 has conflicting payloads in supplied records"
+        }
+      },
+      "probe_id": "i-63",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "both_arms": {
+          "denominator": 0,
+          "numerator": 0,
+          "observed_exposed": 0,
+          "rate": null,
+          "rate_reason": "undefined"
+        },
+        "forbidden": "zero actual production exposure or zero conversion rate"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "e9a028b7d8103aad071478b99b06718281390ba98e728a58512c7c7c1ddf9a14",
+      "probe_id": "z-16",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Insufficient evidence",
+      "execution_state": "Completed",
+      "expected": {
+        "request": {
+          "provider": "metric owner",
+          "unlocks": "metric intent",
+          "what": "versioned metric definition"
+        }
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "b1413329481fc0fd676f6ec227e5b17282055fd9a129d8ffe7a21353053b537d",
+      "probe_id": "m-17",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": null,
+      "execution_state": "blocked-invalid-input",
+      "expected": {
+        "cause": "malformed JSON",
+        "error_locator": "scorecard.json:2",
+        "preserve": "independent valid-input findings; list C04/C05/C06 as uncompleted"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "6c7c9d3e83708f469d11b324885a136ad633d6f3824e9cfa9bc3f95f8d09289f",
+      "probe_id": "o-18",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C03"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": null,
+      "execution_state": "blocked-unsupported-operation",
+      "expected": {
+        "cause": "unsupported SQL expression; never execute",
+        "preserve": "C02 explicit structured metric can complete"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "3f300f8e956a26657bddbcb814bfdba8125f709ac591aae2a0393a4ffbf5988f",
+      "probe_id": "o-29",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C13"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "canonical_findings": "same values/status/scope as base, locators and input hashes updated; compare by record ID",
+        "mutation": "none",
+        "second_unchanged_run": "same findings except run metadata"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "9cd5438379ed53a0b0559d39dd05ff864ed483dc5158497aab09b21f2f6eaf42",
+      "probe_id": "r-10",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C02",
+        "C05",
+        "C13"
+      ],
+      "base_packet": "p-7c41",
+      "evidence_outcome": "Verified",
+      "execution_state": "Completed",
+      "expected": {
+        "new_rates": {
+          "control": "1/4",
+          "treatment": "1/2"
+        },
+        "old_run_and_input_hashes": "unchanged; use new output directory",
+        "old_scorecard_agreement": "Failed metric-version agreement only; no claim original v1 values wrong"
+      },
+      "forbidden_claims": [
+        "operational failure proves experiment defect",
+        "unexecuted check Verified",
+        "production root cause proven"
+      ],
+      "overlay_sha256": "43173dd2619cd61e87429f1738b034a52a71d1525edd97702036513eb60bb7f5",
+      "per_check": {
+        "C02": {
+          "evidence_outcome": "Verified",
+          "execution_state": "Completed",
+          "expected_rates": {
+            "control": "1/4",
+            "treatment": "1/2"
+          },
+          "scope": "new explicit v2 metric"
+        },
+        "C05": {
+          "evidence_outcome": "Failed",
+          "execution_state": "Completed",
+          "limitation": "not a like-for-like semantic value comparison; old v1 scorecard is not thereby incorrect",
+          "proposition": "scorecard metric reference equals requested metric reference"
+        },
+        "C13": {
+          "evidence_outcome": "Verified",
+          "execution_state": "Completed",
+          "proposition": "new version yields new findings; originals unchanged"
+        }
+      },
+      "probe_id": "r-21",
+      "run_status": "unrun"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10"
+      ],
+      "evidence_outcome": null,
+      "execution_state": "blocked-invalid-input",
+      "expected": "visible file-count admission failure; no executed analytical checks",
+      "kind": "operational-recipe",
+      "probe_id": "o-40",
+      "recipe": {
+        "action": "add files until total is 11",
+        "target": "fresh base copy"
+      },
+      "run_status": "unrun; requires future harness"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10"
+      ],
+      "evidence_outcome": null,
+      "execution_state": "blocked-invalid-input",
+      "expected": "visible >50 MB (decimal) admission failure; no silent truncation",
+      "kind": "operational-recipe",
+      "probe_id": "o-51",
+      "recipe": {
+        "action": "append whitespace to notes.txt until total uncompressed package bytes=50000001",
+        "inventory": "refresh hashes for modified evidence"
+      },
+      "run_status": "unrun; requires future harness"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C05",
+        "C08"
+      ],
+      "evidence_outcome": null,
+      "execution_state": "blocked-invalid-input",
+      "expected": "visible >100000 event-row failure; no silent sampling",
+      "kind": "operational-recipe",
+      "probe_id": "o-62",
+      "recipe": {
+        "action": "create 100001 valid exposure rows with distinct IDs in fresh base copy",
+        "inventory": "refresh hashes"
+      },
+      "run_status": "unrun; requires future harness"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C03",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10"
+      ],
+      "evidence_outcome": null,
+      "execution_state": "errored",
+      "expected": "partial or failed run; C04 retained only if durably completed; all interrupted checks no evidence outcome",
+      "kind": "operational-recipe",
+      "probe_id": "o-73",
+      "recipe": {
+        "action": "future harness injects deterministic delay >60s after C04 completes",
+        "watchdog": "60-second external cap; record peak memory and wall time"
+      },
+      "run_status": "unrun; requires future harness"
+    },
+    {
+      "affected_checks": [
+        "C02",
+        "C05"
+      ],
+      "evidence_outcome": null,
+      "execution_state": "errored",
+      "expected": "explicit exception cause; C02/C05 uncompleted, independent completed results preserved",
+      "kind": "operational-recipe",
+      "probe_id": "o-84",
+      "recipe": {
+        "action": "future harness injects exception immediately before C02",
+        "inputs": "unchanged; failure must not originate from arbitrary supplied SQL"
+      },
+      "run_status": "unrun; requires future harness"
+    },
+    {
+      "affected_checks": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10"
+      ],
+      "evidence_outcome": null,
+      "execution_state": "errored",
+      "expected": "visible resource failure; no fabricated assurance",
+      "kind": "operational-recipe",
+      "probe_id": "o-95",
+      "recipe": {
+        "action": "future harness allocates 2,000,000,001 bytes memory under isolated process limit"
+      },
+      "run_status": "unrun; requires future harness"
+    }
+  ],
+  "review_status": "awaiting independent review",
+  "version": "1.0.0-draft"
+}

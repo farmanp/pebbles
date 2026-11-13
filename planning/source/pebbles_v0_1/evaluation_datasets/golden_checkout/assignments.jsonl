@@ -1,0 +1,8 @@
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-C1", "experiment_id": "checkout-button", "revision": 1, "user_id": "C1", "variant_id": "control"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-C2", "experiment_id": "checkout-button", "revision": 1, "user_id": "C2", "variant_id": "control"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-C3", "experiment_id": "checkout-button", "revision": 1, "user_id": "C3", "variant_id": "control"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-C4", "experiment_id": "checkout-button", "revision": 1, "user_id": "C4", "variant_id": "control"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-T1", "experiment_id": "checkout-button", "revision": 1, "user_id": "T1", "variant_id": "treatment"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-T2", "experiment_id": "checkout-button", "revision": 1, "user_id": "T2", "variant_id": "treatment"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-T3", "experiment_id": "checkout-button", "revision": 1, "user_id": "T3", "variant_id": "treatment"}
+{"assigned_at": "2026-01-01T12:00:00Z", "assignment_id": "A-T4", "experiment_id": "checkout-button", "revision": 1, "user_id": "T4", "variant_id": "treatment"}

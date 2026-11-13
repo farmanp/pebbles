@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "status": "specified before running the simulations",
+  "method": "newcombe-wilson-unpaired-95-v1",
+  "trials_per_scenario": 2000,
+  "seed": 20261112,
+  "coverage_bounds": [0.93, 0.97],
+  "null_rejection_bounds": [0.03, 0.07],
+  "scenarios": [
+    {"id": "BR-D07-null", "n_control": 1000, "n_treatment": 1000, "p_control": 0.2, "p_treatment": 0.2},
+    {"id": "BR-D08-known-effect", "n_control": 1000, "n_treatment": 1000, "p_control": 0.2, "p_treatment": 0.23}
+  ],
+  "null_rule": "Reject zero effect only when the two-sided 95% difference interval excludes zero. This is the same interval used for UI decisions, not a separate p-value test.",
+  "limits": "Independent Bernoulli users, complete fixed samples, no peeking, no clustering/interference or multiplicity. These scenarios do not validate every baseline/sample-size regime. SRM has separate deterministic tests."
+}

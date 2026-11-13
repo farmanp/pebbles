@@ -1,0 +1,13 @@
+schedule_row,task_order,condition,form,method
+1,1,E00,A,N
+1,2,E01,B,P
+2,1,E03,B,P
+2,2,E02,A,N
+3,1,E04,A,N
+3,2,E05,B,P
+4,1,E01,A,N
+4,2,E02,B,P
+5,1,E04,B,P
+5,2,E03,A,N
+6,1,E00,B,P
+6,2,E05,A,N

@@ -1,0 +1,116 @@
+For Pebbles' first evaluation, I'd assume an analyst can provide **an experiment report, some SQL, and possibly a few datasets from their warehouse**.
+
+I would *not* assume they can access the experimentation SDK, production code, or every historical configuration.
+
+The challenge is to determine **what Pebbles can actually prove using only the evidence it's given**.
+
+## **1. What an analyst could realistically provide**
+
+| Evidence                 | Example                                                            | What Pebbles could do                                                  |
+| ------------------------ | ------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| Experiment configuration | Variants, traffic split, start/end dates                           | Check the intended design                                              |
+| Experiment results       | CSV export of conversion rates, sample sizes, confidence intervals | Verify reported calculations where sufficient statistics are available |
+| Metric definitions       | SQL, metric configuration, calculation rules                       | Inspect what the metric actually measures                              |
+| Assignment data          | User IDs, variant IDs, assignment timestamps                       | Check consistency and allocation                                       |
+| Exposure data            | User IDs, timestamps, experiment IDs                               | Look for duplicate exposures or crossovers                             |
+| Outcome data             | Purchases, signups, revenue events                                 | Independently recompute metrics                                        |
+| Analyst notes            | Hypothesis, exceptions, known incidents                            | Interpret findings with human-supplied context                         |
+
+This isn't an unrealistic evidence model. For example, Eppo exposes SQL for inspecting assignment data, user-level aggregations, and results. Statsig Warehouse Native supports exported experiment results and exposure records. Access depends on the company's warehouse permissions and configuration.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://docs.geteppo.com\&sz=32)
+
+The Eppo Docs+1
+
+
+
+## **2. What would remain inaccessible?**
+
+This is where we need to be careful about what Pebbles claims.
+
+| Missing evidence                  | What Pebbles cannot establish                                            |
+| --------------------------------- | ------------------------------------------------------------------------ |
+| Production application code       | Whether the treatment was actually rendered correctly                    |
+| SDK implementation and logs       | Whether assignment and exposure tracking behaved correctly in production |
+| Complete historical configuration | Whether targeting or allocations changed during the experiment           |
+| Missing or unlogged events        | Whether observed records represent every real-world action               |
+| Organizational context            | Why the experiment was started or what tradeoffs matter                  |
+| Complete data lineage             | Whether upstream transformations silently corrupted the evidence         |
+
+For example, if exposure logs show 900 users, Pebbles can verify that 900 distinct users appear in the supplied records.
+
+**It cannot prove that exactly 900 users saw the button in reality.**
+
+That's a fundamentally different claim.
+
+## **3. What I'd make the first evaluation look like**
+
+PEBBLES · FIRST EVIDENCE EVALUATION
+
+**Analyst submits an experiment**
+
+Experiment configuration + scorecard + SQL + available warehouse exports
+
+**Pebbles evaluates the evidence**
+
+Metric calculation matches supplied records
+
+Duplicate exposures incorrectly counted
+
+Actual treatment rendering cannot be verified
+
+**Evaluation report**
+
+Verified findings · Detected defects · Unresolved questions · Required additional evidence
+
+Illustrative results, not findings from a real experiment.
+
+I'd give Pebbles three possible outcomes for each check:
+
+Verified
+
+Failed
+
+Insufficient evidence
+
+The third outcome is just as important as the first two.
+
+## **4. What the first business evaluation dataset should contain**
+
+To test this realistically, I'd create one experiment with multiple **evidence packages**, rather than always supplying Pebbles with perfect data.
+
+| Evaluation case                       | Evidence supplied                                    | Expected behavior                                                          |
+| ------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------- |
+| E01 — Full evidence                   | Configuration, assignments, exposures, outcomes, SQL | Recalculate results and detect a planted defect                            |
+| E02 — Summary only                    | Scorecard and experiment configuration               | Verify supported aggregate checks; do not claim event-level validation     |
+| E03 — Missing metric definition       | Scorecard and event exports                          | Identify the unresolved denominator definition                             |
+| E04 — Contradictory evidence          | Reported exposure counts disagree with raw logs      | Surface the discrepancy and its provenance                                 |
+| E05 — Missing implementation evidence | Complete analytical records, no application logs     | Separate analytical correctness from actual treatment-delivery correctness |
+
+Our technical specification would then contain tests asserting that Pebbles produces the right findings **and refuses to make unsupported claims**.
+
+That gives us two dimensions to evaluate: how well it detects real problems, and how reliably it recognizes the limits of its evidence.
+
+## **5. One decision I'd make for the first pass**
+
+**Start with a file-based evidence package, not direct production integrations.**
+
+Let the analyst provide a scorecard, SQL, and permitted CSV or Parquet exports. We can generate realistic synthetic versions of these for our business evaluation datasets.
+
+We should preserve the source, timestamp, grain, and completeness of each input. For real customer data, use sanitized or appropriately permissioned exports, preferably without direct personal identifiers.
+
+Then we can measure whether Pebbles reaches a correct, defensible conclusion using the information an analyst could reasonably supply.
+
+And importantly, existing tools already detect issues such as sample ratio mismatch and missing metric data.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://docs.statsig.com\&sz=32)
+
+Statsig Docs+1
+
+&#x20;Our first evaluation should compare Pebbles with the analyst's existing workflow, rather than treat detecting those issues as a unique invention.
+
+
+
+**The real question for this first evaluation is: Can Pebbles help an analyst discover what is wrong with an experiment—and what remains unknown—without requiring them to reconstruct the entire experimentation system manually?**
+
+That's a concrete customer problem we can test, and it tells us exactly what evidence the first version needs to support.

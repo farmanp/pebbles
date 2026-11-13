@@ -1,0 +1,6 @@
+{
+  "status": "Technical audit only; no participant sessions run",
+  "assertion_groups": 90,
+  "packets": 11,
+  "scope": "Independent CSV counts, differences, missing IDs, ZIP bytes and schedule balance. Does not independently validate interval methodology or participant difficulty."
+}

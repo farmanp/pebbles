@@ -1,0 +1,62 @@
+{
+  "packet": "r-609",
+  "purpose": "pilot",
+  "expected_diagnosis": "denominator_mismatch",
+  "reported_counts": {
+    "control": {
+      "retained_users": 5780,
+      "users": 40594
+    },
+    "treatment": {
+      "retained_users": 5629,
+      "users": 30930
+    }
+  },
+  "reference_counts": {
+    "control": {
+      "users": 30394,
+      "retained_users": 5780
+    },
+    "treatment": {
+      "users": 30930,
+      "retained_users": 5629
+    }
+  },
+  "supplied_counts": {
+    "control": {
+      "users": 30394,
+      "retained_users": 5780
+    },
+    "treatment": {
+      "users": 30930,
+      "retained_users": 5629
+    }
+  },
+  "expected_missing_users": 0,
+  "missing_by_arm": {
+    "gate_30": {
+      "users": 0,
+      "retained_users": 0
+    },
+    "gate_40": {
+      "users": 0,
+      "retained_users": 0
+    }
+  },
+  "reported_conclusion": "higher_retention",
+  "reference_conclusion": "lower_retention",
+  "conclusion_changed": true,
+  "reference_difference_pp": -0.8177518403042122,
+  "reported_difference_pp": 3.9606019698967265,
+  "expected_shipping_readiness": "blocked",
+  "evidence_required": [
+    "Retained-user counts agree, but at least one reported denominator differs from the distinct users in that arm. The source of the wrong denominator is not established."
+  ],
+  "must_not_claim": [
+    "Original analyst made the introduced error",
+    "Supplied reference proves production completeness",
+    "Shipping is justified by the retention result alone",
+    "A specific upstream pipeline cause is established without evidence"
+  ],
+  "score_notes": "Use rubric.md. Award reasoning grounded in files, not merely matching a diagnostic label."
+}

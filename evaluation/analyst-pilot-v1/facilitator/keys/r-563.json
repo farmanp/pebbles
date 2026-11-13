@@ -1,0 +1,62 @@
+{
+  "packet": "r-563",
+  "purpose": "A",
+  "expected_diagnosis": "metric_mismatch",
+  "reported_counts": {
+    "control": {
+      "retained_users": 15626,
+      "users": 34865
+    },
+    "treatment": {
+      "retained_users": 15692,
+      "users": 35479
+    }
+  },
+  "reference_counts": {
+    "control": {
+      "users": 34865,
+      "retained_users": 6631
+    },
+    "treatment": {
+      "users": 35479,
+      "retained_users": 6456
+    }
+  },
+  "supplied_counts": {
+    "control": {
+      "users": 34865,
+      "retained_users": 6631
+    },
+    "treatment": {
+      "users": 35479,
+      "retained_users": 6456
+    }
+  },
+  "expected_missing_users": 0,
+  "missing_by_arm": {
+    "gate_30": {
+      "users": 0,
+      "retained_users": 0
+    },
+    "gate_40": {
+      "users": 0,
+      "retained_users": 0
+    }
+  },
+  "reported_conclusion": "inconclusive",
+  "reference_conclusion": "lower_retention",
+  "conclusion_changed": true,
+  "reference_difference_pp": -0.8223938434471695,
+  "reported_difference_pp": -0.5896054507828985,
+  "expected_shipping_readiness": "blocked",
+  "evidence_required": [
+    "The reported counts exactly match retention_1, but the declared metric is retention_7. This demonstrates a metric/count mismatch; the upstream reason for the substitution is not established."
+  ],
+  "must_not_claim": [
+    "Original analyst made the introduced error",
+    "Supplied reference proves production completeness",
+    "Shipping is justified by the retention result alone",
+    "A specific upstream pipeline cause is established without evidence"
+  ],
+  "score_notes": "Use rubric.md. Award reasoning grounded in files, not merely matching a diagnostic label."
+}

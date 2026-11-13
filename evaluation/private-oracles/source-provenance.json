@@ -1,0 +1,15 @@
+{
+  "canonical_mapping": "Assignments/exposures/outcomes retain original fields; append exact new-ID repeat record. No original source edited. Other forms independently authored, not claimed production exports.",
+  "freeze_status": "draft, not frozen",
+  "oracle_independence": "Design values chosen before evaluator exists; arithmetic formatted with Fraction only. Independent review still required.",
+  "source_files": {
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/assignments.jsonl": "57ad938acfa6bedcb3c6c8fa6faaedf6cf19c4ae985bc2ffaf080dfd623d9f92",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/duplicate_exposure_mutation.json": "9232266e185e9de180522090167cd06449dd311614707b4cde8cc9a487e574bd",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/expected.json": "ae942443cfcc1774a318e43a4973eb1f7d0b5cc9e76ca1a03ae6e88e9945fc11",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/experiment_manifest.json": "12246f1b62ecef92b34c4f5c61e097a4b0ef139c741c8bdf0336feacb392c0a3",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/exposures.jsonl": "839d6eea4052d71d3f5b68b62d146083cfc50db6ce95273ecb1c4bf765d99aec",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/metric_definitions.json": "e4c74ca77af399610ad8e15a1f5551f753a97c2473a240bcce16beabf2f141ff",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/orphan_exposure_mutation.json": "0ed43777c3b42a77730a353c50cded450cb76e0a31341d69a2b15ae5d7c74ed1",
+    "planning/source/pebbles_v0_1/evaluation_datasets/golden_checkout/outcomes.jsonl": "5391039c97729fbf33f18426704deba8f540cf99600061318dca4e2cb44e8b9c"
+  }
+}

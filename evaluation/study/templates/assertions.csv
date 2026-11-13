@@ -1,0 +1,1 @@
+run_id,packet_id,oracle_version,check_id,assertion_id,critical,eligible,expected,observed,evidence_locator,scorer_id,score,reason,forbidden_claim_quote

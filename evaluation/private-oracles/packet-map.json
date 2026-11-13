@@ -1,0 +1,96 @@
+{
+  "packets": [
+    {
+      "case": "E00",
+      "form": "canonical",
+      "packet_id": "p-7c41"
+    },
+    {
+      "case": "E01",
+      "form": "canonical",
+      "packet_id": "p-a893"
+    },
+    {
+      "case": "E02",
+      "form": "canonical",
+      "packet_id": "p-39f2"
+    },
+    {
+      "case": "E03",
+      "form": "canonical",
+      "packet_id": "p-c617"
+    },
+    {
+      "case": "E04",
+      "form": "canonical",
+      "packet_id": "p-82da"
+    },
+    {
+      "case": "E05",
+      "form": "canonical",
+      "packet_id": "p-5b09"
+    },
+    {
+      "case": "E00",
+      "form": "A",
+      "packet_id": "p-d140"
+    },
+    {
+      "case": "E00",
+      "form": "B",
+      "packet_id": "p-296e"
+    },
+    {
+      "case": "E01",
+      "form": "A",
+      "packet_id": "p-ef32"
+    },
+    {
+      "case": "E01",
+      "form": "B",
+      "packet_id": "p-61ab"
+    },
+    {
+      "case": "E02",
+      "form": "A",
+      "packet_id": "p-948c"
+    },
+    {
+      "case": "E02",
+      "form": "B",
+      "packet_id": "p-b705"
+    },
+    {
+      "case": "E03",
+      "form": "A",
+      "packet_id": "p-03de"
+    },
+    {
+      "case": "E03",
+      "form": "B",
+      "packet_id": "p-f821"
+    },
+    {
+      "case": "E04",
+      "form": "A",
+      "packet_id": "p-475a"
+    },
+    {
+      "case": "E04",
+      "form": "B",
+      "packet_id": "p-ac60"
+    },
+    {
+      "case": "E05",
+      "form": "A",
+      "packet_id": "p-186f"
+    },
+    {
+      "case": "E05",
+      "form": "B",
+      "packet_id": "p-73bd"
+    }
+  ],
+  "participant_access": false,
+  "version": "1.0.0-draft"
+}

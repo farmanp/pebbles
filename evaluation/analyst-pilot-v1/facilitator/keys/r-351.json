@@ -1,0 +1,62 @@
+{
+  "packet": "r-351",
+  "purpose": "B",
+  "expected_diagnosis": "agreement",
+  "reported_counts": {
+    "control": {
+      "retained_users": 5463,
+      "users": 30021
+    },
+    "treatment": {
+      "retained_users": 5611,
+      "users": 29501
+    }
+  },
+  "reference_counts": {
+    "control": {
+      "users": 30021,
+      "retained_users": 5463
+    },
+    "treatment": {
+      "users": 29501,
+      "retained_users": 5611
+    }
+  },
+  "supplied_counts": {
+    "control": {
+      "users": 30021,
+      "retained_users": 5463
+    },
+    "treatment": {
+      "users": 29501,
+      "retained_users": 5611
+    }
+  },
+  "expected_missing_users": 0,
+  "missing_by_arm": {
+    "gate_30": {
+      "users": 0,
+      "retained_users": 0
+    },
+    "gate_40": {
+      "users": 0,
+      "retained_users": 0
+    }
+  },
+  "reported_conclusion": "higher_retention",
+  "reference_conclusion": "higher_retention",
+  "conclusion_changed": false,
+  "reference_difference_pp": 0.8224323309942827,
+  "reported_difference_pp": 0.8224323309942827,
+  "expected_shipping_readiness": "blocked",
+  "evidence_required": [
+    "Reported numerators and denominators match the supplied rows for the declared metric."
+  ],
+  "must_not_claim": [
+    "Original analyst made the introduced error",
+    "Supplied reference proves production completeness",
+    "Shipping is justified by the retention result alone",
+    "A specific upstream pipeline cause is established without evidence"
+  ],
+  "score_notes": "Use rubric.md. Award reasoning grounded in files, not merely matching a diagnostic label."
+}
