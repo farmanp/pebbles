@@ -30,3 +30,6 @@ htmlcov/
 /evaluation/discrepancy/runs/
 /evaluation/analyst-pilot-v1/packets/
 /evaluation/analyst-pilot-v1/distribute/
+
+# Generated static browser demo
+/dist-demo/
