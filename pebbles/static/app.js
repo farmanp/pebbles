@@ -1,6 +1,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const token = document.querySelector('meta[name="pebbles-token"]').content;
+let loadExperimentId=null;
 let selection = null, current = null, filter = 'all', busy = false, reading = false, generation = 0;
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function api(path, data) {
@@ -12,6 +13,9 @@ async function api(path, data) {
 function notice(message) { $('notice').textContent=message; $('notice').hidden=!message; }
 function reset() {
   if(busy)return;
+  const destination=importContext();loadExperimentId=destination?.id||null;
+  let note=$('import-destination');if(!note){note=document.createElement('p');note.id='import-destination';$('load-view').prepend(note);}
+  note.textContent=destination?'Adding evidence to '+destination.name+'. New runs attach automatically.':'Choose evidence for a standalone investigation.';
   $('intake-view').hidden=true;
   $('workspace-view').hidden=true;
   if(busy)return;
@@ -102,7 +106,7 @@ function readAnalysisPlan(){
 }
 function renderAnalysis(){
   const a=current.analysis,host=$('treatment-analysis');
-  if(current.intake){host.hidden=false;host.innerHTML=`<h2>Mapped binary outcome</h2><p>${esc(current.intake.explanation)}</p><p>95% Newcombe/Wilson interval, conditional on independent users and the confirmed fixed observation window. No practical benefit threshold was supplied.</p><button class="button secondary" id="reuse-csv">Import corrected CSV with this mapping</button><p>Attach this run to an experiment first to link a revision.</p>`;$('reuse-csv').onclick=()=>openIntake(current);return;}
+  if(current.intake){const linked=workspaceData?.experiments.some(e=>e.runs.includes(current.run_id));host.hidden=false;host.innerHTML=`<h2>Mapped binary outcome</h2><p>${esc(current.intake.explanation)}</p><p>95% Newcombe/Wilson interval, conditional on independent users and the confirmed fixed observation window. No practical benefit threshold was supplied.</p><button class="button secondary" id="reuse-csv">Import corrected CSV with this mapping</button><p>${linked?'A correction preserves this run and stays attached to its experiment.':'Attach this standalone run from Experiments before creating a linked correction.'}</p>`;$('reuse-csv').onclick=()=>openIntake(current);return;}
   host.hidden=!!current.public_dataset;if(host.hidden)return;
   if(!a){host.innerHTML='<h2>Treatment effect has not been assessed for this saved run.</h2><p>Load the evidence and run a new investigation with an analysis plan. Earlier results remain unchanged.</p>';return;}
   const c=a.comparison, pct=v=>(100*v).toFixed(2)+'%', pp=v=>(v>=0?'+':'')+(100*v).toFixed(2)+' pp';
@@ -137,7 +141,7 @@ function show(report){
 $('run').onclick=async()=>{
   if(!selection||busy||reading)return;
   busy=true;notice('');$('run').disabled=true;$('run').textContent='Investigating…';$('loaded-description').textContent='Reading the evidence, checking calculations and preparing your explanation…';
-  try{show(await api('/api/investigate',selection.example?{example:selection.example,label:$('experiment-name').value,analysis_plan:readAnalysisPlan()}:{files:selection.files,label:$('experiment-name').value,analysis_plan:readAnalysisPlan()}));}
+  try{const body=selection.example?{example:selection.example,label:$('experiment-name').value,analysis_plan:readAnalysisPlan()}:{files:selection.files,label:$('experiment-name').value,analysis_plan:readAnalysisPlan()};if(loadExperimentId)body.experiment_id=loadExperimentId;const report=await api('/api/investigate',body);await finishInvestigation(report,loadExperimentId);}
   catch(e){notice(e.message);$('loaded-description').textContent='The investigation did not finish. Correct the issue above and try again.';}
   finally{busy=false;$('run').disabled=false;$('run').textContent='Run investigation';}
 };

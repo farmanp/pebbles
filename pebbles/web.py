@@ -205,6 +205,12 @@ class Handler(BaseHTTPRequestHandler):
                 if 'example' in body or 'files' in body: raise ValueError('Choose one import mode.')
                 body['files']=package(body['intake'])
             revision=body.get('revision')
+            destination=body.get('experiment_id')
+            if destination is not None:
+                from .workspace import access
+                if revision is not None: raise ValueError('Use the revision destination only.')
+                if not isinstance(destination,str) or not any(e['id']==destination for e in access(self.server.storage)['experiments']):
+                    raise ValueError('Choose an existing experiment before importing.')
             parent=None
             if revision is not None:
                 from .workspace import access, text
@@ -258,6 +264,9 @@ class Handler(BaseHTTPRequestHandler):
                 (folder/'report.md').write_text(markdown(report))
             if revision is not None:
                 access(self.server.storage,{'action':'revision',**revision,'run_id':report['run_id']},
+                       lambda rid: json.loads((self.run_dir(rid)/'report.json').read_text()))
+            elif destination is not None:
+                access(self.server.storage,{'action':'attach','experiment_id':destination,'run_id':report['run_id']},
                        lambda rid: json.loads((self.run_dir(rid)/'report.json').read_text()))
             self.send(report,201)
         except (ValueError,KeyError,TypeError,OSError) as ex:

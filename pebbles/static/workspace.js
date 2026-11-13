@@ -13,7 +13,7 @@ async function openWorkspace(id=activeExperiment){
 async function workspaceSave(body,form){
   if(workspaceBusy)return;
   workspaceBusy=true;const buttons=form?Array.from(form.querySelectorAll('button')):[];buttons.forEach(b=>b.disabled=true);
-  try{const result=await api('/api/workspace',body);await openWorkspace(result.experiment.id);}
+  try{const result=await api('/api/workspace',body);if(body.action==='create')analystView='investigation';await openWorkspace(result.experiment.id);}
   catch(e){notice(e.message);}
   finally{workspaceBusy=false;buttons.forEach(b=>b.disabled=false);}
 }
@@ -72,9 +72,23 @@ function bindRevision(e){
       if(!chosen.some(f=>f.name==='inventory.json'))throw new Error('The complete package needs inventory.json with current hashes.');
       const files=await Promise.all(chosen.map(async f=>({name:f.name,content:await f.text()})));
       const values=Object.fromEntries(new FormData(form));
-      await api('/api/investigate',{files,label:values.label,revision:{experiment_id:e.id,parent_run_id:values.parent_run_id,reason:values.reason}});
-      await openWorkspace(e.id);
+      const report=await api('/api/investigate',{files,label:values.label,revision:{experiment_id:e.id,parent_run_id:values.parent_run_id,reason:values.reason}});
+      await finishInvestigation(report,e.id);
     }catch(err){notice(err.message);}
     finally{workspaceBusy=false;button.disabled=false;button.textContent='Run evidence revision';}
   };
+}
+
+// Capture the destination when entering an import, not from a later global selection.
+function importContext(){
+  const e=workspaceData?.experiments.find(e=>e.id===activeExperiment);
+  if(!e)return null;
+  if(!$('workspace-view').hidden)return e;
+  if(!$('result-view').hidden&&current&&e.runs.includes(current.run_id))return e;
+  return null;
+}
+async function finishInvestigation(report,experimentId=null){
+  if(!experimentId){show(report);return;}
+  busy=false;analystView='investigation';analystSelected[experimentId]=report.run_id;
+  await openWorkspace(experimentId);
 }
