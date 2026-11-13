@@ -1,28 +1,97 @@
 # Pebbles
 
-**Can you trust this A/B test enough to ship?** Inspect the result, investigate missing evidence and share a reviewed decision.
+**Understand an A/B test result—and what still needs checking before you ship.**
 
-## Try the live demo
+Pebbles brings the result, missing evidence, corrections and decision into one workspace. It is built for analysts investigating experiments; product managers can follow the reasoning and see why a change is ready—or not ready—for a decision.
 
-### [Open Pebbles →](https://farmanp.github.io/pebbles/)
+## Start here: try it in your browser
 
-**No install, account or API key.** Opens a populated synthetic checkout investigation. The same Python analysis engine runs in your browser; selected files are processed in your tab, not uploaded to an analysis server. The first visit downloads the browser runtime and may take a little longer.
+### [Open the live demo →](https://farmanp.github.io/pebbles/)
 
-**Temporary workspace:** reloading or closing the tab clears your demo work. Download reports or the decision/evidence ZIP to keep results. Use the local version below for a workspace that persists between visits.
+**No installation, account, API key or dataset needed.** A checkout experiment is already loaded. The first visit may take a little longer while the analysis engine loads.
 
-![Pebbles investigation: conversion rates, effect estimate and uncertainty](docs/images/investigation.jpg)
+**Your task:** decide whether the team should ship the checkout change.
 
-### Your first three clicks
+1. Read **What changed in this rerun?** The original export appeared to show better conversion. Restoring 500 missing users reverses the result.
+2. Use **Evidence run** to switch between **Original export · synthetic** and **Corrected export · synthetic**. Control stays at **20%**; treatment changes from **30% to 15%**. Read the remaining shipping blockers.
+3. Open **Decision**. Read the example **HOLD** recommendation and simulated review. Choose **Download decision and evidence ZIP** to take the reasoning and source evidence with you.
 
-1. **Evidence run → Original export**: see an apparent conversion increase.
-2. **Evidence run → Corrected export**: see the result reverse after 500 omitted users are restored. Expand **Revision comparisons** to inspect what changed. Shipping remains blocked.
-3. **Decision**: read the clearly labeled simulated recommendation/review, then **Download decision and evidence ZIP**.
+**What you should take away:** a positive-looking dashboard result can change when the evidence changes. Pebbles shows the difference and keeps unanswered questions visible; it does not automatically approve a launch.
 
-Click **Import / run evidence** to calculate a new synthetic example, or **Import CSV** to map your own user, variant and binary outcome columns. Cookie Cats fixtures are available in the local version.
+> The demo is synthetic, including its recommendation and reviewer. Work stays in this browser tab and is cleared when you reload or close it. Download anything you want to keep. For a workspace you can return to later, [run locally](#run-locally).
+
+![Pebbles investigation showing control and treatment rates, uncertainty and shipping blockers](docs/images/investigation.jpg)
+
+## What am I looking at?
+
+| In the app | In plain English |
+| --- | --- |
+| **Experiment** | The workspace for one product change you are evaluating. |
+| **Evidence run** | One saved analysis of the files supplied at that point in time. A correction creates another run; it does not overwrite the original. |
+| **Treatment / control** | The changed experience / the comparison experience. |
+| **pp** | Percentage points: 30% versus 20% is a **10 percentage-point** difference. |
+| **95% interval** | The uncertainty range around the estimated difference, under the stated assumptions. An interval crossing zero leaves the direction inconclusive. |
+| **Supported** | That particular check is supported by the supplied evidence. It does **not** mean the treatment won or is safe to ship. |
+| **Blocked / unresolved** | Evidence is missing or a check has not established what you need. Read the explanation and next evidence request. |
+| **Reviewed** | Someone recorded a response to a recommendation. It is separate from the experiment result and does not clear blockers. |
+
+## Try the investigation workflow
+
+Stay with the included example to explore these actions without preparing any data:
+
+| I want to… | Where to go |
+| --- | --- |
+| Understand why the result is uncertain | **Investigation → Interpretation and method**, or expand a finding. |
+| Ask for missing evidence | Expand a finding → **Request evidence** → edit the suggested request → **Save evidence request**. This records a follow-up; it does not send a message. |
+| Add evidence someone supplied | Open the follow-up → **Add received evidence**. Attach the file and describe what was received. |
+| Rerun a corrected export | Save it as **Corrected outcome CSV — validate and rerun**, then choose **Validate and rerun this CSV**. Confirm the mapping and study details before running. |
+| See whether the correction matters | Read **What changed in this rerun?** Compare the conclusion, shipping assessment and original request’s recheck. |
+| Record my judgment | **Decision → New recommendation**. Choose Ship, Hold, Stop or Iterate, explain why, and acknowledge the unresolved evidence. |
+| Share a reviewed decision | Record the reviewer’s response, then **Download decision and evidence ZIP**. The packet includes source data—check it before sharing. |
+
+Corrected findings link back to the original request. New runs **or newly received files** flag older reviews for renewal. Plans and logs can be saved for manual review; uploading them does not automatically verify their claims.
+
+| Find your experiments | Record the decision |
+| --- | --- |
+| ![Experiment list with evidence runs, follow-ups and review status](docs/images/experiments.jpg) | ![Decision workspace with recommendation, rationale and recorded review](docs/images/decision.jpg) |
+
+Screenshots show the synthetic demo. They are not evidence of a real customer investigation or analyst study.
+
+## Bring your own experiment
+
+Start with **Experiments → New experiment**, give it a name, then choose **Import CSV into this experiment**. This keeps the import and later corrections together.
+
+You need a CSV with **one row per user**, two groups, and a yes/no outcome. Column names can differ; you map them in the app. For example:
+
+```csv
+user_id,group,purchased
+u1,control,1
+u2,control,0
+u3,treatment,1
+u4,treatment,0
+```
+
+*This tiny example illustrates the file format, not enough evidence for a shipping decision.*
+
+1. Upload the file and select the user, group and outcome columns.
+2. Identify which group is control and which is treatment. Explain what `1` means, who is included and the observation period.
+3. Confirm the supported study design, then **Validate mapping and preview**.
+4. Review any errors. If validation passes, choose **Run CSV investigation**.
+
+**Supported:** completed tests with independent users, a fixed observation period and a binary outcome (`0/1` or `true/false`). Main CSV intake accepts up to **100,000 rows / 20 MB**. Received files attached to a request have a separate limit of **1 MB each / 10 files per request**, in UTF-8 CSV, JSON, TXT, MD or SQL format.
+
+**A CSV alone cannot establish trustworthy assignment, complete event capture, acceptable business risk or all required guardrails.** Bring your analyst into those checks. Pebbles does not run experiments, connect to your warehouse, or deploy product changes. Continuous metrics, clustered designs and sequential stopping are outside guided CSV intake. [Read the statistical scope and method](STATISTICAL_METHOD.md).
+
+## Keep your work and data
+
+- **Live demo:** files are processed in your tab, not uploaded to an analysis server. There is no account or shared workspace. Reloading clears the session.
+- **Local app:** evidence and decisions persist on your computer. The quick start below stores them in `runs/quickstart/`.
+- **Sharing:** individual reports are available from **Open full report**. The decision/evidence ZIP becomes available after a reviewer response is recorded. There is no built-in reviewer invitation or messaging service.
+- **Review identities:** analyst and reviewer names are local labels, not authenticated approvals. Recording “Ship” does not deploy anything.
 
 ## Run locally
 
-With **Git and Python 3.11+ already installed**, clone and run:
+Use this option if you want to close Pebbles and return to the same workspace later. You need **Git and Python 3.11+** installed; a teammate can help with this one-time setup.
 
 ```sh
 git clone https://github.com/farmanp/pebbles.git
@@ -30,73 +99,46 @@ cd pebbles
 python3 start.py
 ```
 
-Your browser opens the same synthetic checkout investigation. No pip install, API key, data download or frontend build. The local demo is saved separately under `runs/quickstart/`; relaunching preserves it. Stop with **Ctrl+C**. For a terminal-only environment: `python3 start.py --no-browser` and open the printed URL. If port 8848 is busy, an available loopback port is chosen automatically.
-
-## See the workspace
-
-| Experiments | Decision |
-| --- | --- |
-| ![Searchable experiment queue](docs/images/experiments.jpg) | ![Recommendation and recorded review](docs/images/decision.jpg) |
-
-These are screenshots of the included synthetic checkout demo. The recommendations and reviews are simulated, not a real customer investigation or human analyst study.
+Your browser opens the populated checkout demo. No additional packages, API keys or frontend build are required. To return later, run `python3 start.py` from the same folder. Stop the server with **Ctrl+C**.
 
 <details>
-<summary>Optional: synthetic examples and Cookie Cats comparison fixtures</summary>
+<summary>Local startup, storage and troubleshooting</summary>
 
-```sh
-python3 scripts/setup_fixtures.py --with-public-data
-python3 -m pebbles.web --port 8848
-```
-
-Omit `--with-public-data` for synthetic fixtures only. Cookie Cats downloads are pinned by hash; see [third-party notices](THIRD_PARTY_NOTICES.md). Unavailable example packets are hidden until generated. On macOS, configure your Python installation's CA certificates if downloads report a certificate error; never disable TLS verification.
+- If the browser does not open, use `python3 start.py --no-browser` and open the printed URL.
+- The default port is 8848; the launcher chooses another available local port if needed.
+- To choose a storage location: `python3 start.py --storage /path/to/folder`.
+- Back up the whole storage folder, including its database and saved runs. These files are excluded from Git.
+- The lower-level `python3 -m pebbles.web` command uses `runs/ui/` by default; this is separate from the quick-start workspace.
+- If optional fixture downloads fail on macOS with `CERTIFICATE_VERIFY_FAILED`, configure your Python installation’s CA certificates. Do not disable TLS verification.
 
 </details>
 
-## Analyst workflow
+## For analysts and contributors
 
-- **Experiments:** create a workspace, attach saved runs and find unfinished work.
-- **Investigation:** import an ordinary user-level binary CSV, map columns, validate rows, inspect effects and blockers, preview evidence and track requests. Prepared packages support deeper checks.
-- **Evidence revisions:** preserve originals and compare populations, results, settings, findings and blockers after a correction.
-- **Decision:** record ship/hold/stop/iterate, acknowledge unresolved evidence, record a reviewer response and download the evidence handoff. Additional runs flag older reviews for renewal.
+- [Statistical method and limitations](STATISTICAL_METHOD.md)
+- [Problem tree](OPPORTUNITY_TREE.md) · [Roadmap](docs/analyst-workflow-roadmap.md)
+- [Guided CSV intake](docs/guided-data-intake.md) · [Received evidence and reruns](docs/request-received-evidence.md) · [Reviewed decisions and handoff](docs/reviewed-decisions.md)
+- [Contributing](CONTRIBUTING.md) · [Reporting a security issue](SECURITY.md)
 
-Names are local labels, not authenticated identities. Workflow closure and reviewer agreement never change analytical outcomes. Missing evidence stays unresolved; a hold or inability to decide is a valid result.
-
-## Data and scope
-
-The hosted demo uses a separate temporary filesystem in each browser tab. No shared analysis backend or account storage is used.
-
-The local server binds to loopback. Runs, evidence and the workspace database live under `runs/ui/`, excluded from Git. Override with `--storage /path/to/folder`; back up database and run directories together. Handoff ZIPs include source data—inspect before sharing.
-
-Guided intake supports one row per user, two arms and one binary outcome under declared fixed-horizon independent-user assumptions. It does not establish upstream completeness. Binary guardrails and selected denominator, metric and population discrepancies are supported in documented package formats. Clustered/sequential designs, general SQL equivalence, continuous metrics, connectors and production rollout remain outside scope. Read the [statistical method](STATISTICAL_METHOD.md).
-
-## Development
+<details>
+<summary>Development setup and optional Cookie Cats fixtures</summary>
 
 ```sh
 python3 scripts/setup_fixtures.py --with-public-data
 python3 -m unittest discover -s tests -v
-# Node.js 22 is for syntax checks; it is not required to run the app.
+# Node.js 22 is needed for development checks, not to run Pebbles.
 for file in pebbles/static/*.js webdemo/*.js; do node --check "$file"; done
+for file in tests/js/*.cjs; do node "$file"; done
 ```
 
-CI tests Python 3.11 and 3.13 with read-only permissions and commit-pinned actions. Downloaded fixtures are hash-verified and never uploaded as CI artifacts. Use branches and pull requests; see [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
+Omit `--with-public-data` for synthetic fixtures only. Cookie Cats downloads are pinned by hash; see [third-party notices](THIRD_PARTY_NOTICES.md). Unavailable example packets are hidden until generated.
 
-## Project map
+The Python engine and local server live in `pebbles/`; the UI is in `pebbles/static/`. Tests are in `tests/`, fixture generators in `examples/` and `evaluation/`, and design records in `docs/` and `planning/`. Historical documents may reference local artifacts intentionally omitted from Git.
 
-| Location | Purpose |
-| --- | --- |
-| `pebbles/` | Engine, local HTTP app, workspace and exports |
-| `pebbles/static/` | Browser UI without a frontend build step |
-| `tests/` | Engine, persistence, HTTP and presentation tests |
-| `examples/`, `evaluation/` | Synthetic/controlled materials and generators |
-| `public_comparisons/` | Comparison code and pinned provenance |
-| `docs/`, `planning/` | Feature contracts, design, verification and limitations |
+Use branches and pull requests. Protected `main` requires passing CI on Python 3.11 and 3.13. Do not commit private experiment exports, local databases or facilitator answer keys intended to stay hidden from participants.
 
-Start with the [problem tree](OPPORTUNITY_TREE.md) and [roadmap](docs/analyst-workflow-roadmap.md). Feature records: [workspace UX](docs/analyst-workspace-redesign.md), [guided intake](docs/guided-data-intake.md), [revisions](docs/evidence-revisions.md), [reviewed handoff](docs/reviewed-decisions.md).
-
-Historical documents link to some local walkthrough artifacts and generated packets intentionally omitted from Git. Rebuild fixtures with the setup command. Private session evidence is not part of a clone. Facilitator answer keys must remain hidden from evaluation participants.
+</details>
 
 ## License
 
-Private, proprietary project; no open-source license has been granted. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).
-
-On macOS, if Python reports `CERTIFICATE_VERIFY_FAILED` during fixture download, configure that Python installation's CA certificates (for python.org builds, run its bundled Install Certificates command) or use a properly configured Homebrew Python. Do not disable TLS verification.
+Proprietary; no open-source license has been granted. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).
