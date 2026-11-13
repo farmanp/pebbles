@@ -1,6 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const ctx=vm.createContext({esc:s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')});
 vm.runInContext(fs.readFileSync('pebbles/static/decisions.js','utf8'),ctx);
+vm.runInContext(fs.readFileSync('pebbles/static/received.js','utf8'),ctx);
 const items=[{id:'0',kind:'blocker',text:'Missing plan'},{id:'1',kind:'finding',text:'Missing plan'},{id:'2',kind:'assumption',text:'Independent users'}];
 const html=ctx.decisionObligations(items);
 assert.equal((html.match(/Missing plan/g)||[]).length,1);
@@ -17,6 +18,8 @@ assert.ok(fresh.includes('data-request-finding="capture"'));assert.ok(fresh.incl
 const tracked=ctx.findingAction(r,f,{followups:[{id:'followup-1',run_id:'old-run',finding_id:'capture',status:'open'}]});
 assert.ok(tracked.includes('data-view-followup="followup-1"'));assert.ok(!tracked.includes('<form'));
 assert.ok(ctx.findingAction({...r,run_id:'new-run'},f,{followups:[{id:'followup-1',run_id:'old-run',finding_id:'capture'}]}).includes('<form'));
+assert.ok(ctx.findingAction({run_id:'child'},f,{followups:[{id:'followup-1',run_id:'old-run',finding_id:'capture',rechecks:[{run_id:'child'}]}]}).includes('data-view-followup="followup-1"'));
+assert.equal(ctx.receiptParent({run_id:'root',rechecks:[{run_id:'child'}]},'unrelated'),'child');
 console.log('Contextual finding actions and complete decision acknowledgment passed');
 (async()=>{
   const pending=[],saved=[];
@@ -40,3 +43,15 @@ console.log('Contextual finding actions and complete decision acknowledgment pas
   pending[2]({obligations:[]});await third;assert.equal(form.elements.confirmed_obligations.checked,false);
   console.log('Stale preview protection, full acknowledgment and run reset passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});
+ctx.resultSummary=x=>x.conclusion;
+const comparison={before_result:{conclusion:'higher'},after_result:{conclusion:'lower'},before_decision:{status:'blocked',blockers:['Missing plan']},after_decision:{status:'blocked',blockers:['Missing plan']}};
+const impact=ctx.revisionImpact({run_id:'child',revision_comparison:comparison},{followups:[{id:'f',run_id:'root',question:'Original finding',rechecks:[{run_id:'child',outcome:'Insufficient evidence'}]}]});
+assert.ok(impact.includes('The analytical conclusion changed.'));
+assert.ok(impact.includes('shipping assessment and blockers are unchanged'));
+assert.ok(impact.includes('data-view-followup="f"'));
+assert.ok(impact.includes('Still unresolved by this rerun.'));
+assert.ok(impact.includes('Missing plan'));
+assert.ok(impact.includes('Saved human recommendations are not changed automatically'));
+const frozen={context:{runs:['r'],followups:[{receipts:[{id:'first'}]}]}};
+assert.equal(ctx.decisionNeedsRenewal({runs:['r'],followups:[{receipts:[{id:'first'}]}]},frozen),false);
+assert.equal(ctx.decisionNeedsRenewal({runs:['r'],followups:[{receipts:[{id:'first'},{id:'new'}]}]},frozen),true);

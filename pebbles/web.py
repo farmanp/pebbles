@@ -109,7 +109,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if path == '/':
                 self.send((STATIC/'index.html').read_text().replace('__TOKEN__',self.server.token),content_type='text/html; charset=utf-8')
-            elif path in ('/app.js','/presentation.js','/workspace.js','/intake.js','/decisions.js','/analyst-workspace.js','/analyst-workspace.css','/style.css'):
+            elif path in ('/app.js','/presentation.js','/workspace.js','/intake.js','/decisions.js','/received.js','/analyst-workspace.js','/analyst-workspace.css','/style.css'):
                 self.send((STATIC/path[1:]).read_text(),content_type='text/javascript; charset=utf-8' if path.endswith('.js') else 'text/css; charset=utf-8')
             elif path == '/api/workspace':
                 from .workspace import access
@@ -174,10 +174,11 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 from .workspace import access
                 length=int(self.headers.get('Content-Length','0'))
-                if not 0 < length <= 64000: raise ValueError('Workspace request exceeds 64 KB.')
+                if not 0 < length <= 6_100_000: raise ValueError('Received evidence request is too large.')
                 if self.headers.get('Content-Type','').split(';')[0]!='application/json': raise ValueError('Expected JSON.')
                 body=json.loads(self.rfile.read(length))
                 if not isinstance(body,dict): raise ValueError('Expected a workspace action.')
+                if body.get('action')!='receive' and length>64000:raise ValueError('Workspace request exceeds 64 KB.')
                 self.send(access(self.server.storage, body, lambda rid: json.loads((self.run_dir(rid)/'report.json').read_text())))
             except (ValueError,KeyError,TypeError,OSError) as ex:
                 self.send({'error':str(ex)},400)
@@ -222,7 +223,14 @@ class Handler(BaseHTTPRequestHandler):
                 if experiment is None or parent_id not in experiment['runs']: raise ValueError('Choose an attached parent run.')
                 if 'example' in body: raise ValueError('Upload a complete revised evidence package.')
                 parent=json.loads((self.run_dir(parent_id)/'report.json').read_text())
-                revision={'experiment_id':experiment_id,'parent_run_id':parent_id,'reason':reason}
+                from .received import linked_receipt
+                receipt=linked_receipt(experiment,revision)
+                if receipt is not None:
+                    import hashlib
+                    supplied=(body.get('intake') or {}).get('content')
+                    if not parent.get('intake') or not isinstance(supplied,str) or hashlib.sha256(supplied.encode()).hexdigest()!=receipt['sha256']:
+                        raise ValueError('Rerun the exact received CSV using a mapped CSV parent.')
+                revision={'experiment_id':experiment_id,'parent_run_id':parent_id,'reason':reason,**{k:revision[k] for k in ('followup_id','receipt_id') if k in revision}}
                 # Preserve explicit user-entered settings; otherwise use the revised configuration.
                 if 'analysis_plan' not in body:
                     a=parent.get('analysis') or {}

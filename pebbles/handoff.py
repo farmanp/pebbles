@@ -17,8 +17,11 @@ def obligations(run):
             items.append(('finding',f['check_id']+': '+f['question']+' — '+(f.get('evidence_outcome') or f['execution_state'])+'. '+f['explanation']))
     return [{'id':str(i),'kind':kind,'text':value} for i,(kind,value) in enumerate(items)]
 
+def received_files(context):
+    return [x for f in context.get('followups',[]) for x in f.get('receipts',[])]
+
 def needs_renewal(experiment,decision):
-    return experiment['runs']!=decision['context']['runs']
+    return experiment['runs']!=decision['context']['runs'] or {x['id'] for x in received_files(experiment)}!={x['id'] for x in received_files(decision['context'])}
 
 def create(experiment,body,run,now,text):
     import uuid
@@ -37,7 +40,9 @@ def create(experiment,body,run,now,text):
 def bundle(experiment,decision,read_folder):
     if not decision.get('review'):raise ValueError('Record a reviewer response before exporting the decision handoff.')
     stale=needs_renewal(experiment,decision)
-    title='REVIEW NEEDS RENEWAL — newer evidence is attached' if stale else 'Recorded review of the cited evidence snapshot'
+    frozen_receipts={x['id'] for x in received_files(decision['context'])}
+    newer_receipts=[{k:x[k] for k in ('id','name','sha256','at')} for x in received_files(experiment) if x['id'] not in frozen_receipts]
+    title='REVIEW NEEDS RENEWAL — newer evidence is attached or received' if stale else 'Recorded review of the cited evidence snapshot'
     status=(decision.get('assessment') or {}).get('status','not assessed')
     lines=['# Pebbles decision handoff','',title,'','Experiment: '+decision['experiment_name'],
            'Decision ID: '+decision['id'],'Evidence run: '+decision['run_id'],
@@ -51,8 +56,9 @@ def bundle(experiment,decision,read_folder):
     lines += ['- '+x['kind']+': '+x['text'] for x in decision['obligations']] or ['None listed; inspect the full report assumptions.']
     lines += ['','## Contents','decision.json preserves the recommendation, review and investigation context at recommendation time. Each runs/<id>/ directory contains saved reports and original evidence. manifest.json lists SHA-256 fingerprints.','',
               'Newer runs attached since this recommendation: '+', '.join(x for x in experiment['runs'] if x not in decision['context']['runs']) if stale else 'No additional runs are attached at export time.']
+    lines += ['','Received files added after this snapshot (excluded from the reviewed packet): '+', '.join(x['name'] for x in newer_receipts)] if newer_receipts else []
     md='\n'.join(lines)+'\n'
-    payload={'export_status':title,'needs_renewal':stale,'current_attached_runs':experiment['runs'],'decision':decision}
+    payload={'export_status':title,'needs_renewal':stale,'current_attached_runs':experiment['runs'],'newer_received_evidence':newer_receipts,'decision':decision}
     files={'README.md':md.encode(),'decision.json':json.dumps(payload,indent=2).encode(),
            'index.html':('<!doctype html><meta charset="utf-8"><title>Pebbles decision handoff</title><style>body{max-width:900px;margin:40px auto;font:16px system-ui;line-height:1.6;padding:24px}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><h1>Decision and evidence handoff</h1><pre>'+html.escape(md)+'</pre>').encode()}
     from .core import FILES
@@ -71,6 +77,11 @@ def bundle(experiment,decision,read_folder):
             raw=path.read_bytes()
             if hashlib.sha256(raw).hexdigest()!=digest:raise ValueError('Saved evidence changed; cannot export a verified handoff.')
             files[f'runs/{rid}/evidence/{name}']=raw
+    for followup in decision['context'].get('followups',[]):
+        for receipt in followup.get('receipts',[]):
+            raw=receipt['content'].encode()
+            if hashlib.sha256(raw).hexdigest()!=receipt['sha256']:raise ValueError('Received evidence fingerprint mismatch.')
+            files[f"received/{followup['id']}/{receipt['id']}/{receipt['name']}"]=raw
     files['manifest.json']=json.dumps({name:hashlib.sha256(raw).hexdigest() for name,raw in files.items()},indent=2).encode()
     stream=io.BytesIO()
     with zipfile.ZipFile(stream,'w',zipfile.ZIP_DEFLATED) as archive:
