@@ -34,6 +34,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Browser script syntax
         run: |
-          for file in pebbles/static/*.js; do
+          for file in pebbles/static/*.js webdemo/*.js; do
             node --check "$file"
           done
+      - name: Build static browser demo
+        run: python scripts/build_web_demo.py

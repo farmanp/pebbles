@@ -14,3 +14,9 @@ original company's experiment plan. Review upstream terms before other uses.
 GitHub Actions are referenced by immutable commits and retain their upstream
 licenses. The Pebbles runtime uses the Python standard library and local browser
 JavaScript; it does not bundle external frontend libraries or fonts.
+
+The hosted demo loads Pyodide 0.27.7 (Python/WebAssembly) and its standard-library
+packages from jsDelivr. Pyodide is distributed under the Mozilla Public License
+2.0; Python and bundled libraries retain their respective licenses. Runtime
+source and notices: https://github.com/pyodide/pyodide/tree/0.27.7. The runtime
+is fetched by visitors rather than checked into this repository.
