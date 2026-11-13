@@ -1,5 +1,7 @@
 # Pebbles
 
+<img src="docs/images/pebbles-logo.svg" alt="Pebbles logo" width="256" height="64">
+
 **Understand an A/B test result—and what still needs checking before you ship.**
 
 Pebbles brings the result, missing evidence, corrections and decision into one workspace. It is built for analysts investigating experiments; product managers can follow the reasoning and see why a change is ready—or not ready—for a decision.
