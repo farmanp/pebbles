@@ -5,10 +5,7 @@ from pathlib import Path
 import hashlib
 import json
 import math
-import re
-import uuid
 
-from . import __version__
 
 EVENTS = {'assignments.jsonl': ('assignment_id', 'assigned_at'),
           'exposures.jsonl': ('exposure_id', 'exposed_at'),
@@ -306,193 +303,13 @@ def calculate(e, version):
 
 
 def investigate(folder, analysis_plan=None):
-    e = Evidence(folder)
-    if 'source.csv' in e.hashes or 'import.json' in e.hashes:
+    """Route the selected evidence format to its investigator."""
+    evidence = Evidence(folder)
+    if 'source.csv' in evidence.hashes or 'import.json' in evidence.hashes:
         from .intake import investigate_import
-        return investigate_import(e)
-    if 'cookie_cats.csv' in e.hashes or 'readout.json' in e.hashes:
+        return investigate_import(evidence)
+    if 'cookie_cats.csv' in evidence.hashes or 'readout.json' in evidence.hashes:
         from .public_comparison import investigate_snapshot
-        return investigate_snapshot(e,analysis_plan)
-    findings = {}
-
-    def add(cid, explanation, outcome='Insufficient evidence', state='Completed', values=None, refs=(), request=None):
-        findings[cid] = {'check_id': cid, 'check_version': '1.0.0', 'question': QUESTIONS[cid],
-                         'scope': 'Supplied evidence only', 'execution_state': state,
-                         'evidence_outcome': outcome if state == 'Completed' else None,
-                         'explanation': explanation, 'values': values, 'evidence': e.refs(refs),
-                         'limitations': LIMITATION,
-                         'next_evidence_request': request or ('Resolve the stated input limitation with the data owner.' if state != 'Completed' else None)}
-
-    def run(cid, names, operation):
-        try:
-            missing = e.require(*names)
-            if missing:
-                add(cid, 'Required evidence is missing: ' + ', '.join(missing), refs=names,
-                    request='Ask the analyst or metric owner for ' + ', '.join(missing) + ' to assess this check.')
-            else:
-                operation()
-        except InputProblem as ex:
-            add(cid, str(ex), state=ex.state, refs=names)
-        except (ValueError, TypeError, KeyError, IndexError) as ex:
-            add(cid, f'Invalid supplied structure: {ex}', state='blocked-invalid-input', refs=names)
-
-    def counts():
-        existing = [n for n in EVENTS if n in e.data or n in e.errors]
-        e.require(*existing)
-        if not existing:
-            add('C01', 'No event exports supplied; event-level counts cannot be verified.', request='Provide assignment, exposure and outcome exports.')
-            return
-        v = {name: {'rows': len(e.data[name]), 'distinct_users': len({r['user_id'] for r, _ in e.data[name]})} for name in existing}
-        add('C01', 'These are literal counts in the supplied files; they do not establish metric eligibility or production coverage.', 'Verified', values=v, refs=existing)
-    run('C01', (), counts)
-
-    metric_names = ('configuration.json', 'metric.json', *EVENTS)
-    calculation = {}
-    def metric():
-        version, issue = metric_version(e)
-        if issue:
-            add('C02', issue, refs=metric_names, request='Obtain an explicit, consistent versioned metric from the metric owner.')
-            return
-        values, integrity = calculate(e, version)
-        calculation.update(values=values, integrity=integrity, version=version)
-        if integrity['conflicts']:
-            add('C02', 'Conflicting record identities prevent unambiguous attribution. Resolve the listed conflicts before calculating the metric.', state='blocked-invalid-input', refs=metric_names)
-        else:
-            add('C02', f'Computed {version} over the valid subset of supplied records using the declared assignment, identity and time rules. Zero denominators are undefined.', 'Verified', values=values, refs=metric_names)
-    run('C02', metric_names, metric)
-
-    if calculation:
-        detail = calculation['integrity']
-        add('C08', f"Identified {len(detail['excluded'])} excluded records, {len(detail['conflicts'])} identity conflicts, {detail['identical_replays']} identical replays and {detail['repeat_encounters']} repeat encounters. A repeat encounter is not itself a defect; an orphan in these files does not prove a production tracking failure.", 'Verified', values=detail, refs=metric_names)
-    else:
-        def record_integrity():
-            seen, conflicts, replays = {}, [], 0
-            for row, line in e.data['exposures.jsonl']:
-                key = row['exposure_id']
-                if key in seen:
-                    if seen[key] == row:
-                        replays += 1
-                    else:
-                        conflicts.append({'path':'exposures.jsonl', 'record_id':key, 'line':line})
-                else:
-                    seen[key] = row
-            users = {r['user_id'] for r, _ in e.data['assignments.jsonl']}
-            orphans = sorted(r['exposure_id'] for r in seen.values() if r['user_id'] not in users)
-            values = {'conflicts':conflicts, 'identical_replays':replays, 'orphan_record_ids':orphans,
-                      'repeat_encounters':len(seen)-len({r['user_id'] for r in seen.values()})}
-            add('C08', 'Counted repeated IDs, repeat encounters and users absent from the supplied assignments. These are record facts only; metric eligibility and production root causes remain unresolved.', 'Verified', values=values, refs=('assignments.jsonl','exposures.jsonl'))
-        run('C08', ('assignments.jsonl','exposures.jsonl'), record_integrity)
-
-    def sql():
-        version = e.data['metric.json'].get('version')
-        if version != 'v1' or e.data['metric.json'].get('denominator') != VERSION_RULES['v1']['denominator']:
-            raise InputProblem('SQL denominator inspection supports only the declared distinct-exposed-user v1 rule.', 'blocked-unsupported-operation')
-        text = e.data['metric.sql']
-        mask = sql_code_mask(text)
-        # Deliberately recognize only the supplied denominator CTE, not arbitrary SQL equivalence.
-        match = re.search(r'\bdenominators\s+AS\s*\(\s*SELECT\s+variant_id\s*,\s*(.*?)\s+AS\s+denominator\s+FROM\s+valid\s+GROUP\s+BY\s+variant_id\s*\)', mask, re.I | re.S)
-        if not match or mask.count(';') > 1:
-            raise InputProblem('Unsupported SQL shape. SQL was not executed; structured metric calculation remains separate.', 'blocked-unsupported-operation')
-        expr = ' '.join(text[match.start(1):match.end(1)].split())
-        good = re.fullmatch(r'COUNT\s*\(\s*DISTINCT\s+user_id\s*\)', expr, re.I)
-        bad = re.fullmatch(r"CASE WHEN variant_id='([^']+)' THEN COUNT\(\*\) ELSE COUNT\(DISTINCT user_id\) END", expr, re.I)
-        if not good and not bad:
-            raise InputProblem('Unsupported SQL denominator expression; no arbitrary SQL is executed.', 'blocked-unsupported-operation')
-        explanation = ('The denominator expression counts distinct user IDs.' if good else f'The denominator expression counts exposure rows for {bad.group(1)}; the supplied definition requires distinct users.')
-        add('C03', explanation + ' This is expression inspection only; the rest of the SQL and general query equivalence are not verified.', 'Verified' if good else 'Failed', values={'expression': expr}, refs=('metric.json', 'metric.sql'))
-    run('C03', ('metric.json', 'metric.sql'), sql)
-
-    def arithmetic():
-        score = e.data['scorecard.json']
-        if score.get('display') != 'percent with 3 decimals':
-            raise InputProblem('Unsupported scorecard display precision.', 'blocked-unsupported-operation')
-        bad = []
-        for arm, row in score['arms'].items():
-            n, d, rate = row['numerator'], row['denominator'], row.get('rate_percent')
-            ok = 0 <= n <= d and ((d == 0 and rate is None) or (d > 0 and rate is not None and abs(Fraction(str(rate))/100 - Fraction(n,d)) <= Fraction(5,1_000_000)))
-            if not ok:
-                bad.append(arm)
-        add('C04', 'Scorecard arithmetic is inconsistent for: ' + ', '.join(bad) if bad else 'Reported percentages match the scorecard’s own numerator and denominator fields within three-decimal percentage rounding. This does not validate the intended denominator.', 'Failed' if bad else 'Verified', values=score['arms'], refs=('scorecard.json',))
-    run('C04', ('scorecard.json',), arithmetic)
-
-    def comparable():
-        names = ('assignments.jsonl', 'exposures.jsonl', 'outcomes.jsonl', 'scorecard.json', 'metric.json')
-        missing = e.require(*names)
-        if missing:
-            add('C07', 'Cannot establish shared analytical scope without ' + ', '.join(missing), refs=('inventory.json',), request='Provide the missing definitions/exports and aligned population, filters, window and snapshot metadata.')
-            return
-        keys = ('population', 'filters', 'window', 'export_timestamp', 'experiment_id', 'revision')
-        entries = [e.entries[n] for n in names]
-        valid = all(all(a.get(k) not in (None, '', 'unknown') and a.get(k) == entries[0].get(k) for a in entries) for k in keys)
-        c = e.data['configuration.json']
-        valid = valid and entries[0]['experiment_id'] == c['experiment_id'] and entries[0]['revision'] == c['revision'] and entries[0]['window'] == {'start': c['window_start'], 'end_exclusive': c['window_end']}
-        add('C07', 'Inventory declares matching population, filters, window, snapshot and experiment revision. This is declared alignment, not independently proven upstream lineage.' if valid else 'Population, filters, window or snapshot are unknown or inconsistent. Neither the scorecard nor the export can be treated as authoritative.', 'Verified' if valid else 'Insufficient evidence', refs=('inventory.json', 'configuration.json', 'metric.json'), request=None if valid else 'Ask the data owner for aligned export filters, population, window and snapshot metadata.')
-    run('C07', ('inventory.json', 'configuration.json'), comparable)
-
-    def agreement():
-        score, metric = e.data['scorecard.json'], e.data['metric.json']
-        ref = f"{metric.get('metric_id')}@{metric.get('version')}"
-        if score.get('metric_ref') != ref:
-            add('C05', f"Scorecard metric reference {score.get('metric_ref')!r} differs from requested {ref!r}. This does not establish that the old scorecard is wrong under its own definition.", 'Failed', refs=('scorecard.json','metric.json','configuration.json'))
-            return
-        calc = findings['C02']
-        if calc['execution_state'] != 'Completed':
-            raise InputProblem('Metric calculation did not complete: ' + calc['explanation'], calc['execution_state'])
-        if calc['evidence_outcome'] != 'Verified' or findings['C07']['evidence_outcome'] != 'Verified':
-            add('C05', 'Semantic agreement is unresolved: metric definition/calculation or shared source scope is not established. A numerical discrepancy alone cannot decide which source is correct.', refs=metric_names + ('scorecard.json','inventory.json'), request='Obtain a resolved metric definition and aligned source provenance from the metric/data owner.')
-            return
-        differences = []
-        values = calculation['values']
-        if set(score['arms']) != set(values):
-            differences.append('Scorecard variants differ from the experiment variants.')
-        for arm, v in values.items():
-            row = score['arms'].get(arm)
-            if row is None:
-                continue
-            if (row['numerator'],row['denominator']) != (v['numerator'],v['denominator']):
-                differences.append(f"{arm}: reported {row['numerator']}/{row['denominator']}; supported calculation {v['numerator']}/{v['denominator']} ({v['rate_percent']}%).")
-            elif v['denominator'] and (row.get('rate_percent') is None or abs(Fraction(str(row['rate_percent']))/100 - Fraction(v['numerator'],v['denominator'])) > Fraction(5,1_000_000)):
-                differences.append(f'{arm}: displayed percentage differs from the supported calculation.')
-            elif not v['denominator'] and row.get('rate_percent') is not None:
-                differences.append(f'{arm}: zero denominator requires an undefined rate.')
-        add('C05', ' '.join(differences) + ' Reconcile the scorecard before relying on this measurement.' if differences else 'Scorecard numerators, denominators and rates agree with the declared calculation over the supplied records.', 'Failed' if differences else 'Verified', values={'computed': values, 'reported': score['arms']}, refs=metric_names + ('scorecard.json','inventory.json'), request='Ask the metric owner to correct and regenerate the scorecard using the versioned denominator rule.' if differences else None)
-    run('C05', metric_names + ('scorecard.json','inventory.json'), agreement)
-
-    def literal():
-        score = e.data['scorecard.json']
-        values = {}
-        for arm, row in score['arms'].items():
-            if 'distinct_exposed' not in row:
-                add('C06', 'Scorecard does not supply distinct-exposed counts.', refs=('scorecard.json','exposures.jsonl'))
-                return
-            observed = len({r['user_id'] for r, _ in e.data['exposures.jsonl'] if r['variant_id'] == arm})
-            values[arm] = {'reported_distinct_exposed': row['distinct_exposed'], 'export_distinct_users': observed}
-        equal = all(v['reported_distinct_exposed'] == v['export_distinct_users'] for v in values.values())
-        add('C06', 'The displayed distinct-exposure counts equal the distinct users by arm in the exposure file.' if equal else 'The scorecard and exposure export contain different distinct-user counts. This establishes a literal discrepancy, not which source is correct.', 'Verified' if equal else 'Failed', values=values, refs=('scorecard.json','exposures.jsonl'), request=None if equal else 'Ask the data owner to reconcile source filters, snapshots and the cited counts.')
-    run('C06', ('scorecard.json', 'exposures.jsonl'), literal)
-
-    for cid, explanation, request in [
-        ('C09','Analytical files do not establish that treatment was actually rendered correctly. This prototype does not validate application or SDK behavior.','Ask the implementation owner for relevant render/instrumentation evidence if delivery is decision-critical.'),
-        ('C10','Export counts and completeness declarations do not independently establish capture of all production activity.','Ask the data owner for independent capture reconciliation and source lineage if completeness is decision-critical.')]:
-        run(cid, (), lambda cid=cid, explanation=explanation, request=request: add(cid, explanation, request=request, refs=('inventory.json',)))
-    ordered = [findings[k] for k in sorted(findings)]
-    blocked = [f['check_id'] for f in ordered if f['execution_state'] != 'Completed']
-    failed = [f['check_id'] for f in ordered if f['evidence_outcome'] == 'Failed']
-    execution = 'failed' if len(blocked) == len(ordered) else 'partial' if blocked else 'Completed'
-    report = {'schema_version':'1.0.0','prototype_version':__version__, 'run_id':str(uuid.uuid4()),
-            'metric_version':calculation.get('version'),
-            'created_at':datetime.now(timezone.utc).isoformat(), 'input_hashes':e.hashes,
-            'execution_state':execution, 'uncompleted_checks':blocked,
-            'headline': 'Input limitations prevented a complete investigation' if blocked else 'Evidence discrepancies require investigation' if failed else 'Supported checks completed; important evidence limits remain',
-            'scope':LIMITATION, 'findings':ordered,
-            'not_evaluated':['Production randomization implementation and interference','Production treatment delivery','Production capture completeness','Human shipping judgment','Independent report-quality scoring (C11)','Cross-run replay validation (C13; demonstrated separately in tests)']}
-
-    from .analysis import analyze
-    supplied_plan=e.data.get('configuration.json',{}).get('analysis_plan')
-    report['analysis']=analyze(report,analysis_plan if analysis_plan is not None else supplied_plan,
-                               source='user-entered run settings' if analysis_plan is not None else 'configuration.json/analysis_plan')
-    from .decision import decide
-    report['decision']=decide(report, report['analysis']['plan'], e.data.get('guardrails.json'),
-        e.data.get('assignments.jsonl',[]),e.data.get('configuration.json',{}),
-        str(e.global_error or e.errors.get('guardrails.json')) if e.global_error or e.errors.get('guardrails.json') else None)
-    return report
+        return investigate_snapshot(evidence, analysis_plan)
+    from .investigation import Investigation
+    return Investigation(evidence).investigate(analysis_plan)
