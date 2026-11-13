@@ -12,7 +12,7 @@ cd pebbles
 python3 start.py
 ```
 
-Your browser opens directly into a populated **synthetic checkout investigation**. No pip install, API key, data download or frontend build. Startup timing excludes installing Python, GitHub access and cloning; this repository is private, so viewers need access to clone it.
+Your browser opens directly into a populated **synthetic checkout investigation**. No pip install, API key, data download or frontend build. Startup timing excludes installing Python and cloning; this public repository can be cloned without an invitation.
 
 ![Pebbles investigation: conversion rates, effect estimate and uncertainty](docs/images/investigation.jpg)
 
