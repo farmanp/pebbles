@@ -70,7 +70,7 @@
       const {experimentId}=await request({type:'init'});
       // Every visit starts with new IDs; old bookmarked run IDs cannot be restored.
       location.hash=`experiment/${experimentId}/investigation`;
-      for(const name of ['presentation.js','app.js','decisions.js','workspace.js','intake.js','analyst-workspace.js'])await script(name);
+      for(const name of ['presentation.js','app.js','decisions.js','workspace.js','intake.js','received.js','analyst-workspace.js'])await script(name);
       document.getElementById('demo-loading').remove();
       document.querySelector('.app-shell').hidden=false;
       document.getElementById('demo-status').textContent='Live demo · Runs in this tab. Reload resets your work; download reports to keep them.';

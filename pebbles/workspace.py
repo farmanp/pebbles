@@ -48,6 +48,9 @@ def access(storage, body=None, read_run=None):
                         'check_outcome':finding['evidence_outcome'] or finding['execution_state'],
                         'request':text(body,'request',4000,True),'owner':text(body,'owner',120),
                         'notes':text(body,'notes'),'status':'open','revision':1,'updated_at':now})
+            elif action == 'receive':
+                from .received import receive
+                receive(experiment,body,now,text)
             elif action == 'revision':
                 from .revisions import compare_runs
                 parent_id=text(body,'parent_run_id',36,True)
@@ -55,14 +58,20 @@ def access(storage, body=None, read_run=None):
                 reason=text(body,'reason',4000,True)
                 if parent_id not in experiment['runs']: raise ValueError('Parent run is not attached to this experiment.')
                 if child_id in experiment['runs']: raise ValueError('Revision already attached.')
+                from .received import linked_receipt
+                receipt=linked_receipt(experiment,body)
                 parent,child=read_run(parent_id),read_run(child_id)
                 lineage=child.get('revision') or {}
                 if lineage.get('parent_run_id')!=parent_id or lineage.get('experiment_id')!=experiment['id'] or lineage.get('reason')!=reason:
                     raise ValueError('Revision lineage does not match the saved run.')
+                if receipt is not None:
+                    if any(lineage.get(k)!=body.get(k) for k in ('followup_id','receipt_id')):raise ValueError('Received evidence lineage does not match.')
+                    if child.get('input_hashes',{}).get('source.csv')!=receipt['sha256']:raise ValueError('Rerun source does not match received evidence.')
+                    receipt['runs'].append(child_id)
                 comparison=compare_runs(parent,child)
                 experiment['runs'].append(child_id)
                 experiment.setdefault('revisions',[]).append({'parent_run_id':parent_id,'run_id':child_id,
-                    'reason':reason,'created_at':now,'comparison':comparison})
+                    'reason':reason,'created_at':now,'comparison':comparison,**{k:body[k] for k in ('followup_id','receipt_id') if k in body}})
                 for f in experiment['followups']:
                     previous=f.get('rechecks',[])
                     if f['run_id']!=parent_id and not any(r['run_id']==parent_id for r in previous): continue
@@ -88,7 +97,7 @@ def access(storage, body=None, read_run=None):
                 decision=next((d for d in experiment.get('decisions',[]) if d['id']==body.get('decision_id')),None)
                 if decision is None:raise ValueError('Unknown recommendation.')
                 if decision.get('review'):raise ValueError('This review is already recorded. Create a new recommendation to change it.')
-                if needs_renewal(experiment,decision):raise ValueError('New evidence was attached. Create a new recommendation against the current evidence before review.')
+                if needs_renewal(experiment,decision):raise ValueError('New evidence was attached or received. Create a new recommendation against the current evidence before review.')
                 if body.get('outcome') not in REVIEWS:raise ValueError('Choose agree, request changes or disagree.')
                 if body.get('confirmed') is not True:raise ValueError('Confirm review of the cited run and unresolved evidence.')
                 decision['review']={'reviewer':text(body,'reviewer',120,True),'outcome':body['outcome'],
@@ -105,6 +114,6 @@ def access(storage, body=None, read_run=None):
                                 notes=notes,status=status,revision=followup['revision']+1,updated_at=now)
             else: raise ValueError('Unknown workspace action.')
         experiment['events'].append({'at':now,'action':action,
-            'details':{k:v for k,v in body.items() if k not in ('action','experiment_id')}})
+            'details':{k:v for k,v in body.items() if k not in ('action','experiment_id','content')}})
         db.execute('INSERT OR REPLACE INTO workspace VALUES (1,?)',(json.dumps(data),))
         return {'experiment':experiment}
