@@ -39,3 +39,5 @@ jobs:
           done
       - name: Build static browser demo
         run: python scripts/build_web_demo.py
+      - name: Workflow navigation checks
+        run: node tests/js/continuity.test.cjs
