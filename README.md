@@ -20,7 +20,9 @@ Pebbles brings the result, missing evidence, corrections and decision into one w
 
 > The demo is synthetic, including its recommendation and reviewer. Work stays in this browser tab and is cleared when you reload or close it. Download anything you want to keep. For a workspace you can return to later, [run locally](#run-locally).
 
-![Pebbles investigation showing control and treatment rates, uncertainty and shipping blockers](docs/images/investigation.jpg)
+[![Pebbles investigation showing control and treatment rates, uncertainty and shipping blockers](docs/images/investigation-desktop.jpg)](docs/images/investigation-desktop.jpg)
+
+*Click any screenshot to open it at full size.*
 
 ## What am I looking at?
 
@@ -51,9 +53,13 @@ Stay with the included example to explore these actions without preparing any da
 
 Corrected findings link back to the original request. New runs **or newly received files** flag older reviews for renewal. Plans and logs can be saved for manual review; uploading them does not automatically verify their claims.
 
-| Find your experiments | Record the decision |
-| --- | --- |
-| ![Experiment list with evidence runs, follow-ups and review status](docs/images/experiments.jpg) | ![Decision workspace with recommendation, rationale and recorded review](docs/images/decision.jpg) |
+**Find your experiments**
+
+[![Experiment list with evidence runs, follow-ups and review status](docs/images/experiments-desktop.jpg)](docs/images/experiments-desktop.jpg)
+
+**Record the decision**
+
+[![Decision workspace with recommendation, rationale and recorded review](docs/images/decision-desktop.jpg)](docs/images/decision-desktop.jpg)
 
 Screenshots show the synthetic demo. They are not evidence of a real customer investigation or analyst study.
 
