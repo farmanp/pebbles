@@ -13,3 +13,11 @@ Work on a short-lived branch and submit a pull request against main. Keep change
 Keep evidence outcomes separate from workflow states. Never turn absent evidence into a pass, overwrite old runs, or treat a recorded reviewer name as authenticated approval. Preserve numerical and explanation parity across the UI and exports. Test substantive behavioral changes; use Computer Use for UI flows and describe exactly what was exercised.
 
 Do not commit analyst exports, local workspace databases, secrets, private handoff bundles or downloaded third-party datasets. Fixture generators and pinned provenance belong in Git. The pilot's facilitator keys are evaluation material, not runtime inputs; keep them hidden from participants.
+
+## Keep changes readable
+
+- Give each function one responsibility. Separate input validation, calculation, policy and presentation when they change for different reasons.
+- Use descriptive names and ordinary multiline control flow; do not compress branches or multiple statements onto one line.
+- Reuse shared rules and calculations. Extract helpers for a concrete responsibility or repeated behavior, without adding generic frameworks for one caller.
+- Keep decision precedence explicit: harmful evidence still argues against shipping when other evidence is missing; missing or uncertain evidence never establishes safety.
+- For decision refactors, verify complete output parity (including explanations and blocker order), not just the final status. Cover invalid inputs and threshold boundaries.
