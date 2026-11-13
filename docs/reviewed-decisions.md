@@ -4,7 +4,7 @@ Implemented and verified 2026-11-13. In **Experiment workspace**, attach the rel
 
 ## Workflow
 
-1. Select an exact evidence run. Read its machine assessment and supporting evidence; acknowledge each listed blocker, unresolved assumption, unevaluated area and unresolved finding.
+1. Select an exact evidence run. Read its machine assessment and supporting evidence; review the consolidated list of blockers, assumptions, unevaluated areas and unresolved findings, then acknowledge it once. Exact duplicate text is displayed once with its source categories; every original obligation remains in the frozen snapshot. Changing the selected run resets acknowledgment.
 2. Enter an analyst name, ship/hold/stop/iterate recommendation and rationale. Save an immutable recommendation snapshot. A recommendation may disagree with Pebbles, but it cannot relabel a failed check or remove blockers.
 3. Inspect the saved recommendation and source run. Record reviewer name, agree/request changes/disagree response, rationale and explicit review acknowledgement. Each snapshot accepts one review; subsequent changes require a new recommendation.
 4. Download the decision and evidence ZIP. It contains a readable HTML/Markdown summary, machine-readable frozen decision/review/context, prior decision records, all runs attached when the recommendation was created, their source evidence and reports, and a SHA-256 manifest. This is a local download for user-controlled sharing, not an automatic message.

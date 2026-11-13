@@ -41,3 +41,5 @@ jobs:
         run: python scripts/build_web_demo.py
       - name: Workflow navigation checks
         run: node tests/js/continuity.test.cjs
+      - name: Finding and decision workflow checks
+        run: node tests/js/finding-decision.test.cjs
