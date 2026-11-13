@@ -50,6 +50,15 @@ class DemoBundleTests(unittest.TestCase):
             self.assertNotIn('href="/',html)
             self.assertIn('Reloading clears your demo work',html)
             self.assertNotIn('__TOKEN__',html)
+            import re
+            version=re.search(r'bootstrap\.js\?v=([a-f0-9]{16})',html)
+            self.assertIsNotNone(version, 'published assets need a build version')
+            self.assertNotIn('__DEMO_BUILD__',(output/'bootstrap.js').read_text())
+            self.assertIn(version.group(1),(output/'bootstrap.js').read_text())
+            self.assertRegex(html,r'analyst-workspace\.css\?v='+version.group(1))
+            self.assertIn('assetURL(name)',(output/'bootstrap.js').read_text())
+            self.assertIn("assetURL('worker.js')",(output/'bootstrap.js').read_text())
+            self.assertIn('engineURL.search=self.location.search',(output/'worker.js').read_text())
 
     def test_refuses_stale_output_files(self):
         from scripts.build_web_demo import build

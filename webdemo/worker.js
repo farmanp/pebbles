@@ -4,7 +4,9 @@ let python;
 async function initialize() {
   python = await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.7/full/'});
   await python.loadPackage(['sqlite3','hashlib','ssl']);
-  const response = await fetch(new URL('engine.zip',self.location.href));
+  const engineURL=new URL('engine.zip',self.location.href);
+  engineURL.search=self.location.search;
+  const response = await fetch(engineURL);
   if(!response.ok) throw new Error('The analysis engine could not be downloaded.');
   python.unpackArchive(await response.arrayBuffer(),'zip',{extractDir:'/app'});
   await python.runPythonAsync(`

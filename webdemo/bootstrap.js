@@ -1,8 +1,10 @@
 'use strict';
 (() => {
   const base=new URL('./',location.href);
+  const build='__DEMO_BUILD__';
+  function assetURL(name){const url=new URL(name,base);url.searchParams.set('v',build);return url;}
   let worker;
-  try { worker=new Worker(new URL('worker.js',base)); }
+  try { worker=new Worker(assetURL('worker.js')); }
   catch(error) {
     document.getElementById('demo-loading-message').textContent='This browser could not start the analysis engine. Try a current browser or run Pebbles locally.';
     const retry=document.getElementById('demo-retry');retry.hidden=false;retry.onclick=()=>location.reload();
@@ -62,7 +64,7 @@
       setTimeout(()=>URL.revokeObjectURL(url),60000);
     }catch(error){preview?.close();document.getElementById('demo-status').textContent=error.message;}
   });
-  function script(name){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=new URL(name,base);s.onload=resolve;s.onerror=()=>reject(new Error('The interface could not load. Please reload.'));document.head.append(s);});}
+  function script(name){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=assetURL(name);s.onload=resolve;s.onerror=()=>reject(new Error('The interface could not load. Please reload.'));document.head.append(s);});}
   async function start(){
     try{
       const {experimentId}=await request({type:'init'});

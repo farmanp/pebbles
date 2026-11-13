@@ -1,5 +1,6 @@
 """Build a static, tab-isolated demo; only allowlisted app and synthetic files ship."""
 import argparse
+import hashlib
 from pathlib import Path
 import re
 import shutil
@@ -37,6 +38,15 @@ def build(destination):
         sources += [p for p in folder.iterdir() if p.is_file() and p.name in FILES|{'inventory.json'}]
     with zipfile.ZipFile(destination/'engine.zip','w',zipfile.ZIP_DEFLATED) as archive:
         for p in sorted(set(sources)):archive.write(p,p.relative_to(ROOT).as_posix())
+    # One build identity prevents browsers mixing cached UI/worker/engine versions.
+    digest=hashlib.sha256()
+    for asset in sorted(destination.iterdir()):
+        digest.update(asset.name.encode());digest.update(asset.read_bytes())
+    version=digest.hexdigest()[:16]
+    bootstrap=destination/'bootstrap.js'
+    bootstrap.write_text(bootstrap.read_text().replace('__DEMO_BUILD__',version))
+    html=re.sub(r'(href|src)="(\./[^"?]+\.(?:css|js))"',lambda m:f'{m[1]}="{m[2]}?v={version}"',html)
+    (destination/'index.html').write_text(html)
     return destination
 
 if __name__=='__main__':
