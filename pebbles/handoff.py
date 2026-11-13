@@ -9,6 +9,11 @@ import zipfile
 RECOMMENDATIONS=('ship','hold','stop','iterate')
 REVIEWS=('agree','request changes','disagree')
 
+def report_fingerprint(report):
+    """Use the same canonical report identity when recording and exporting a decision."""
+    return hashlib.sha256(json.dumps(report, sort_keys=True).encode()).hexdigest()
+
+
 def obligations(run):
     d=run.get('decision') or {}
     items=[('blocker',x) for x in d.get('blockers',[])]+[('assumption',x) for x in d.get('unresolved',[])]+[('not evaluated',x) for x in run.get('not_evaluated',[])]
@@ -65,7 +70,8 @@ def bundle(experiment,decision,read_folder):
     for rid in decision['context']['runs']:
         folder=read_folder(rid)
         report=json.loads((folder/'report.json').read_text())
-        if hashlib.sha256(json.dumps(report,sort_keys=True).encode()).hexdigest()!=decision['report_fingerprints'][rid]:raise ValueError('Saved report changed since recommendation; cannot export this handoff.')
+        if report_fingerprint(report) != decision['report_fingerprints'][rid]:
+            raise ValueError('Saved report changed since recommendation; cannot export this handoff.')
         from .report import html_report, markdown
         files[f'runs/{rid}/report.json']=(folder/'report.json').read_bytes()
         files[f'runs/{rid}/report.md']=markdown(report).encode()
