@@ -13,7 +13,7 @@ async function openWorkspace(id=activeExperiment){
 async function workspaceSave(body,form){
   if(workspaceBusy)return;
   workspaceBusy=true;const buttons=form?Array.from(form.querySelectorAll('button')):[];buttons.forEach(b=>b.disabled=true);
-  try{const result=await api('/api/workspace',body);if(body.action==='create')analystView='investigation';await openWorkspace(result.experiment.id);}
+  try{const result=await api('/api/workspace',body);if(body.action==='create')analystView='investigation';await openWorkspace(result.experiment.id);return result;}
   catch(e){notice(e.message);}
   finally{workspaceBusy=false;buttons.forEach(b=>b.disabled=false);}
 }
