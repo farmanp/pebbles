@@ -8,7 +8,7 @@ python3 -m unittest discover -s tests -v
 for file in pebbles/static/*.js; do node --check "$file"; done
 ```
 
-Work on a short-lived branch and submit a pull request against main. Keep changes scoped; include purpose, validation and effects on saved evidence or decisions. CI must pass before merging. The owner may self-review until another maintainer is available; do not represent that as independent review.
+Work on a short-lived branch and submit a pull request against main. Keep changes scoped; include purpose, validation and effects on saved evidence or decisions. CI must pass before merging. This is currently a maintainer policy: GitHub rejected private-repository branch protection on the current account plan. Required checks and force-push/deletion restrictions are not server-enforced. The owner may self-review until another maintainer is available; do not represent that as independent review.
 
 Keep evidence outcomes separate from workflow states. Never turn absent evidence into a pass, overwrite old runs, or treat a recorded reviewer name as authenticated approval. Preserve numerical and explanation parity across the UI and exports. Test substantive behavioral changes; use Computer Use for UI flows and describe exactly what was exercised.
 
