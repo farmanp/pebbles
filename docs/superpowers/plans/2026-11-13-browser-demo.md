@@ -13,8 +13,10 @@ No shared visitor data; no local secrets or public dataset redistribution. Keep 
 - [x] Implement webdemo/bridge.py with dispatch(storage, method, path, body) returning a JSON transport envelope using existing Handler methods.
 - [x] Build webdemo/worker.js and bootstrap.js to initialize pinned Python, serialize calls, intercept fetch/downloads, and load unchanged application scripts after seeding.
 - [x] Add scripts/build_web_demo.py with an explicit release-file allowlist and package-content tests. Add loading/error/session-lifetime UI.
-- [ ] Add pinned Pages workflow and browser-demo tests to CI; verify locally through Computer Use.
-- [ ] Merge through required CI, enable and verify Pages deployment, test public flow through Computer Use, then publish README demo link through a passing PR.
+- [x] Add pinned Pages workflow and browser-demo tests to CI; verify locally through Computer Use.
+- [x] Merge through required CI, enable and verify Pages deployment, test public flow through Computer Use, then publish README demo link through a passing PR.
 
 ## Validation ledger
 Browser runtime successfully seeded and calculated original +10 pp and corrected -5 pp. A newly run guardrail case produced refund harm and an against-shipping conclusion. Downloaded handoff ZIP verified (16 entries). Fresh review caught home-link reset, stale build output and worker constructor failures; all addressed. Local HTTP tests require loopback permission in the execution sandbox.
+
+Public deployment verified via Computer Use at https://farmanp.github.io/pebbles/. Uploaded synthetic CSV (200 users) validated and computed control 20%, treatment 10%, difference -10 pp with shipping blocked. Home navigation retained the original experiment ID. Pages deploy succeeded; PR CI passed on Python 3.11 and 3.13. README link included in this documentation change.
